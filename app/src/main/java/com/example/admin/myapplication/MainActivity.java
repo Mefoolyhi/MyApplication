@@ -21,7 +21,9 @@ public class MainActivity extends BaseSpiceActivity {
 
     private MyHttpRequest txtRequest;
     JParser jp = new JParser();
-    String url = "https://kudago.com/public-api/v1.4/events/",nextUrl;
+    String url = "https://afisha.yandex.ru/api/events/selection/all-events-concert/?city=yekaterinburg&limit=12&offset=0&hasMixed=0";
+    //https://afisha.yandex.ru/api/events/selection/all-events-theatre/?city=yekaterinburg&limit=12&offset=0&hasMixed=0
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,17 +46,16 @@ public class MainActivity extends BaseSpiceActivity {
 
         @Override
         public void onRequestFailure(SpiceException spiceException) {
-            Toast.makeText(MainActivity.this, "failure", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "failure", Toast.LENGTH_LONG).show();
         }
 
         @Override
         public void onRequestSuccess(final String result) {
-            Toast.makeText(MainActivity.this, "success", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "success", Toast.LENGTH_LONG).show();
 
+            Log.e("PArs",result);
+            //jp.parse(result);
 
-            jp.parse(result);
-            nextUrl = jp.getNextUrl();
-            Log.e("Parse",jp.getData().toString());
         }
     }
 }

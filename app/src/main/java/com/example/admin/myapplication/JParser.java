@@ -17,16 +17,14 @@ public class JParser {
 
     String LOG_TAG = "Parser";
     ArrayList<Event> data = new ArrayList<>();
-    String nextUrl;
+
 
 
     public ArrayList<Event> getData() {
         return data;
     }
 
-    public String getNextUrl() {
-        return nextUrl;
-    }
+
 
     JParser(){
 
@@ -45,8 +43,7 @@ public class JParser {
 
 
         JSONObject dataJsonObj = new JSONObject(jstring);
-        JSONArray friends = dataJsonObj.getJSONArray("results");
-        nextUrl = dataJsonObj.getString("next"); //следующая страница для парсинга
+        JSONArray friends = dataJsonObj.getJSONArray("data");
             Log.e(LOG_TAG, String.valueOf(friends.length()));
         for (int i = 0; i < friends.length(); i++) {
             JSONObject friend = friends.getJSONObject(i);
@@ -54,10 +51,19 @@ public class JParser {
 
             String id = friend.getString("id");
             String title = friend.getString("title");
-            Event e = new Event(title,Long.parseLong(id));
+            String rating = friend.getString("contentRating");
+            String imageurl = friend.getJSONObject("eventCover").getString("url");
+            JSONArray prices = friend.getJSONArray("ticket");
+            JSONObject price = prices.getJSONObject(0).getJSONObject("price");
+            String pr = price.getString("min").substring(0,price.getString("min").length() - 2) + "-" + price.getString("max").substring(0,price.getString("max").length() - 2);
+            price = friend.getJSONObject("scheduleInfo");
+            String place = price.getString("placePreview");
+            String dates = price.getJSONObject("preview").getString("dates");
+
+            Event e = new Event(title,id,rating,pr,imageurl,dates,place);
             data.add(e);
-            Log.d(LOG_TAG, "id: " + id);
-            Log.d(LOG_TAG, "title: " + title);
+            Log.d(LOG_TAG, id + " " + title + " " + rating +
+                    " "+ pr+" "+imageurl+" " + dates+" "+place);
         }
 
     } catch(

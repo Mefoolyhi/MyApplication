@@ -59,7 +59,7 @@ public class JParser {
             String pr = price.getString("min").substring(0,price.getString("min").length() - 2) + "-" + price.getString("max").substring(0,price.getString("max").length() - 2);
             price = friend.getJSONObject("event").getJSONObject("scheduleInfo");
             String place = price.getString("placePreview");
-            String dates = price.getJSONObject("preview").getString("dates");
+            String dates = price.getJSONObject("preview").getString("text");
 
             Event e = new Event(title,id,rating,pr,imageurl,dates,place,url);
             data.add(e);

@@ -49,21 +49,22 @@ public class JParser {
             JSONObject friend = friends.getJSONObject(i);
 
 
-            String id = friend.getString("id");
-            String title = friend.getString("title");
-            String rating = friend.getString("contentRating");
-            String imageurl = friend.getJSONObject("eventCover").getString("url");
-            JSONArray prices = friend.getJSONArray("ticket");
+            String id = friend.getJSONObject("event").getString("id");
+            String title = friend.getJSONObject("event").getString("title");
+            String url = friend.getJSONObject("event").getString("url");
+            String rating = friend.getJSONObject("event").getString("contentRating");
+            String imageurl = friend.getJSONObject("event").getJSONObject("image").getJSONObject("eventCover").getString("url");
+            JSONArray prices = friend.getJSONObject("event").getJSONArray("ticket");
             JSONObject price = prices.getJSONObject(0).getJSONObject("price");
             String pr = price.getString("min").substring(0,price.getString("min").length() - 2) + "-" + price.getString("max").substring(0,price.getString("max").length() - 2);
-            price = friend.getJSONObject("scheduleInfo");
+            price = friend.getJSONObject("event").getJSONObject("scheduleInfo");
             String place = price.getString("placePreview");
             String dates = price.getJSONObject("preview").getString("dates");
 
-            Event e = new Event(title,id,rating,pr,imageurl,dates,place);
+            Event e = new Event(title,id,rating,pr,imageurl,dates,place,url);
             data.add(e);
             Log.d(LOG_TAG, id + " " + title + " " + rating +
-                    " "+ pr+" "+imageurl+" " + dates+" "+place);
+                    " "+ pr+" "+imageurl+" " + dates+" "+place+ " " + url);
         }
 
     } catch(

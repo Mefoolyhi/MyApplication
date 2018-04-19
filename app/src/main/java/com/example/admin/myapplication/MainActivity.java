@@ -54,7 +54,7 @@ public class MainActivity extends BaseSpiceActivity {
             Toast.makeText(MainActivity.this, "success", Toast.LENGTH_LONG).show();
 
             Log.e("PArs",result);
-            //jp.parse(result);
+            jp.parse(result);
 
         }
     }

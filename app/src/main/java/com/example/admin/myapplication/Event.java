@@ -5,9 +5,9 @@ package com.example.admin.myapplication;
 public class Event {
 
 
-    String title,id,rating,imagelink,price,dates,place;
+    String title,id,rating,imagelink,price,dates,place,url;
 
-    Event(String name,String id,String rating,String price,String imagelink,String dates,String place){
+    Event(String name,String id,String rating,String price,String imagelink,String dates,String place,String url){
         this.id = id;
         this.title = name;
         this.price = price;
@@ -15,6 +15,7 @@ public class Event {
         this.imagelink = imagelink;
         this.dates = dates;
         this.place = place;
+        this.url = url;
     }
 
     public String getRating() {

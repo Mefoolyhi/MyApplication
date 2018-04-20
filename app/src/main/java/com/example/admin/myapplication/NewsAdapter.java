@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.admin.myapplication.Utils.PostValue;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 
@@ -19,7 +21,7 @@ import java.util.ArrayList;
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     private Context context;
 
-private ArrayList<PostValue> data;
+    private ArrayList<PostValue> data;
 
 
     @Override
@@ -36,6 +38,7 @@ private ArrayList<PostValue> data;
         final PostValue pv = data.get(position);
         holder.time.setText(pv.getTime());
         holder.heading.setText(pv.getHeading());
+        holder.picture.setImageURI(pv.getLink());
         holder.cvListener.setRecord(pv,position);
 
 
@@ -43,7 +46,7 @@ private ArrayList<PostValue> data;
 
     }
 
-    public NewsAdapter(ArrayList<PostValue> data, Context context){
+    public NewsAdapter(ArrayList<PostValue> data,Context context){
         this.data = data;
         this.context = context;
     }
@@ -57,33 +60,34 @@ private ArrayList<PostValue> data;
 
         CardView cv;
         TextView time,heading;
+        SimpleDraweeView picture;
         ClickListener cvListener = new ClickListener();
 
         public ViewHolder(final View itemView) {
             super(itemView);
+            picture = itemView.findViewById(R.id.pic_news);
             cv = itemView.findViewById(R.id.cv);
             time = itemView.findViewById(R.id.time);
             heading = itemView.findViewById(R.id.heading);
             cv.setOnClickListener(cvListener);
 
         }}
-        class ClickListener implements View.OnClickListener{
+    class ClickListener implements View.OnClickListener{
 
-            PostValue pv;
-            int pos;
+        PostValue pv;
+        int pos;
 
-            @Override
-            public void onClick(View v) {
-
-            }
-
-            void setRecord(PostValue pv,int pos){
-                this.pv = pv;
-                this.pos = pos;
-            }
+        @Override
+        public void onClick(View v) {
 
         }
 
+        void setRecord(PostValue pv,int pos){
+            this.pv = pv;
+            this.pos = pos;
+        }
 
     }
 
+
+}

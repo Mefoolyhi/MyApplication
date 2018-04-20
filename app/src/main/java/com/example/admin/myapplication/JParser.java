@@ -2,15 +2,11 @@ package com.example.admin.myapplication;
 
 import android.util.Log;
 
+import com.example.admin.myapplication.Utils.Event;
+
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 
 public class JParser {
@@ -26,7 +22,7 @@ public class JParser {
 
 
 
-    JParser(){
+    public JParser(){
 
         data.clear();
     }

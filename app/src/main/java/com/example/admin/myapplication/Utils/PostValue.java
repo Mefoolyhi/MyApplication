@@ -1,4 +1,4 @@
-package com.example.admin.myapplication;
+package com.example.admin.myapplication.Utils;
 
 /**
  * Created by admin on 18.02.2018.

@@ -7,7 +7,7 @@ public class Event {
 
     String title,id,rating,imagelink,price,dates,place,url;
 
-    Event(String name,String id,String rating,String price,String imagelink,String dates,String place,String url){
+    public Event(String name, String id, String rating, String price, String imagelink, String dates, String place, String url){
         this.id = id;
         this.title = name;
         this.price = price;

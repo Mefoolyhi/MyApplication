@@ -1,7 +1,8 @@
-package com.example.admin.myapplication;
+package com.example.admin.myapplication.Activities;
 
 import android.app.Activity;
 
+import com.example.admin.myapplication.SampleSpiceService;
 import com.octo.android.robospice.SpiceManager;
 
 public abstract class BaseSpiceActivity extends Activity {

@@ -5,15 +5,25 @@ package com.example.admin.myapplication.Utils;
  */
 
 public class PostValue {
-    private String time,heading,link,more;
+    private String id,time,heading,link;
 
 
-    public PostValue(String time, String heading, String link, String more){
+    public PostValue(String id,String time, String heading, String link){
         this.time = time;
         this.heading = heading;
-        this.link = link;
-        this.more = more;
+        this.link = "http://www.justmedia.ru" + link;
+        this.id = id;
+
+
 }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getTime() {
         return time;
@@ -39,11 +49,4 @@ public class PostValue {
         this.link = link;
     }
 
-    public String getMore() {
-        return more;
-    }
-
-    public void setMore(String more) {
-        this.more = more;
-    }
 }

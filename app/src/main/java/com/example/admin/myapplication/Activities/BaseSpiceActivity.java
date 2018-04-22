@@ -1,11 +1,12 @@
 package com.example.admin.myapplication.Activities;
 
 import android.app.Activity;
+import android.support.v7.app.AppCompatActivity;
 
 import com.example.admin.myapplication.SampleSpiceService;
 import com.octo.android.robospice.SpiceManager;
 
-public abstract class BaseSpiceActivity extends Activity {
+public abstract class BaseSpiceActivity extends AppCompatActivity {
     private SpiceManager spiceManager = new SpiceManager(SampleSpiceService.class);
 
     @Override

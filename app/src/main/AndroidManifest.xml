@@ -14,29 +14,28 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Activities.MainActivity"
+            android:name=".Activities.PickActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <service
             android:name=".SampleSpiceService"
             android:exported="false" />
 
         <activity
-            android:name=".Activities.Main2Activity"
+            android:name=".Activities.NewsActivity"
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.NoActionBar">
-
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Activities.FiltersActivity"
+            android:label="@string/title_activity_filters"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -49,43 +49,9 @@ public class MyHttpRequest extends GoogleHttpClientSpiceRequest<String> {
         MyHttpRequestInitializer() { }
 
         public void initialize(HttpRequest request) throws IOException {
-
-//            HttpURLConnection urlConnection;
-//            URL url = new URL(baseUrl);
-//
-//            urlConnection = (HttpURLConnection) url.openConnection();
-//            urlConnection.setRequestMethod("GET");
-//            urlConnection.connect();
-//            InputStream inputStream = urlConnection.getInputStream();
-//            StringBuffer buffer = new StringBuffer();
-//
-//            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-//
-//            String line;
-//            while ((line = reader.readLine()) != null) {
-//                buffer.append(line);
-//            }
-//
-//            String resultJson = buffer.toString();
-//
-//            try {
-//                JSONObject dataJsonObj = new JSONObject(resultJson);
-//                JSONArray friends = dataJsonObj.getJSONArray("results");
-//                for (int i = 0; i < friends.length(); i++) {
-//                    JSONObject friend = friends.getJSONObject(i);
-//
-//
-//                    String id = friend.getString("id");
-//                    String title = friend.getString("title");
-//                    Log.d(LOG_TAG, "id: " + id);
-//                    Log.d(LOG_TAG, "title: " + title);
-//                }
-//
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
+           }
 
         }
     }
 
-}
+

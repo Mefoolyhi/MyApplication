@@ -1,4 +1,4 @@
-package com.example.admin.myapplication;
+package com.example.admin.myapplication.Parsers;
 
 import android.util.Log;
 
@@ -50,16 +50,16 @@ public class JParser {
             String url = friend.getJSONObject("event").getString("url");
             String rating = friend.getJSONObject("event").getString("contentRating");
             String imageurl = friend.getJSONObject("event").getJSONObject("image").getJSONObject("eventCover").getString("url");
-            JSONArray prices = friend.getJSONObject("event").getJSONArray("ticket");
+            JSONArray prices = friend.getJSONObject("event").getJSONArray("tickets");
             JSONObject price = prices.getJSONObject(0).getJSONObject("price");
             String pr = price.getString("min").substring(0,price.getString("min").length() - 2) + "-" + price.getString("max").substring(0,price.getString("max").length() - 2);
-            price = friend.getJSONObject("event").getJSONObject("scheduleInfo");
+            price = friend.getJSONObject("scheduleInfo");
             String place = price.getString("placePreview");
             String dates = price.getJSONObject("preview").getString("text");
 
             Event e = new Event(title,id,rating,pr,imageurl,dates,place,url);
             data.add(e);
-            Log.d(LOG_TAG, id + " " + title + " " + rating +
+            Log.e(LOG_TAG, id + " " + title + " " + rating +
                     " "+ pr+" "+imageurl+" " + dates+" "+place+ " " + url);
         }
 

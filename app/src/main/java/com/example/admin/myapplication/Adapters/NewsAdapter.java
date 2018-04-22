@@ -1,13 +1,16 @@
-package com.example.admin.myapplication;
+package com.example.admin.myapplication.Adapters;
 
 import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.admin.myapplication.OnBottomReachedListener;
+import com.example.admin.myapplication.R;
 import com.example.admin.myapplication.Utils.PostValue;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -23,6 +26,12 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     private ArrayList<PostValue> data;
 
+    OnBottomReachedListener onBottomReachedListener;
+
+    public void setOnBottomReachedListener(OnBottomReachedListener onBottomReachedListener){
+
+        this.onBottomReachedListener = onBottomReachedListener;
+    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -41,12 +50,21 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         holder.picture.setImageURI(pv.getLink());
         holder.cvListener.setRecord(pv,position);
 
+        if (position == data.size() - 3){
+
+            onBottomReachedListener.onBottomReached(position);
+
+        }
 
 
 
     }
 
-    public NewsAdapter(ArrayList<PostValue> data,Context context){
+    public void setData(ArrayList<PostValue> data) {
+        this.data = data;
+    }
+
+    public NewsAdapter(ArrayList<PostValue> data, Context context){
         this.data = data;
         this.context = context;
     }
@@ -55,6 +73,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     public int getItemCount() {
         return data.size();
     }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 

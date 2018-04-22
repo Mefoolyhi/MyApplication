@@ -8,13 +8,13 @@
     <string name="nav_header_desc">Navigation header</string>
 
     <string-array name="types">
-        <item>Любой</item>
-        <item>Гастроли</item>
-        <item>Концерты</item>
         <item>Спектакли</item>
+        <item>Цирк</item>
+        <item>Концерты</item>
+        <item>Мюзиклы</item>
         <item>Шоу</item>
         <item>Детское</item>
     </string-array>
+    <string name="title_activity_filters">FiltersActivity</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

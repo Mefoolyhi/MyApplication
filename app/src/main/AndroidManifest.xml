@@ -19,7 +19,7 @@
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <service
-            android:name=".SampleSpiceService"
+            android:name=".Holy.SampleSpiceService"
             android:exported="false" />
 
         <activity

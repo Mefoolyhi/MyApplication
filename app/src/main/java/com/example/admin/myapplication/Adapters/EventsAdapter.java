@@ -10,20 +10,16 @@ import android.widget.TextView;
 
 import com.example.admin.myapplication.Holy.OnBottomReachedListener;
 import com.example.admin.myapplication.R;
+import com.example.admin.myapplication.Utils.Event;
 import com.example.admin.myapplication.Utils.PostValue;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 
-
-/**
- * Created by admin on 08.03.2018.
- */
-
-public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
+public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder> {
     private Context context;
 
-    private ArrayList<PostValue> data;
+    private ArrayList<Event> data;
 
     OnBottomReachedListener onBottomReachedListener;
 
@@ -35,19 +31,19 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.news_list_tem, parent, false);
+                .inflate(R.layout.event_list_item, parent, false);
 
-        ViewHolder vh = new ViewHolder(v);
+       ViewHolder vh = new ViewHolder(v);
         return vh;
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        final PostValue pv = data.get(position);
-        holder.time.setText(pv.getTime());
-        holder.heading.setText(pv.getHeading());
-        holder.picture.setImageURI(pv.getLink());
-        holder.cvListener.setRecord(pv,position);
+        final Event e = data.get(position);
+        holder.more.setText(e.getPlace() + " " + e.getDates() + " " + e.getPrice());
+        holder.heading.setText(e.getTitle());
+        holder.picture.setImageURI(e.getImagelink());
+        holder.cvListener.setRecord(e,position);
 
         if (position == data.size() - 3){
 
@@ -59,11 +55,11 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     }
 
-    public void setData(ArrayList<PostValue> data) {
+    public void setData(ArrayList<Event> data) {
         this.data = data;
     }
 
-    public NewsAdapter(ArrayList<PostValue> data, Context context){
+    public EventsAdapter(ArrayList<Event> data, Context context){
         this.data = data;
         this.context = context;
     }
@@ -77,22 +73,22 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         CardView cv;
-        TextView time,heading;
+        TextView more,heading;
         SimpleDraweeView picture;
         ClickListener cvListener = new ClickListener();
 
         public ViewHolder(final View itemView) {
             super(itemView);
-            picture = itemView.findViewById(R.id.pic_news);
+            picture = itemView.findViewById(R.id.pic_ev);
             cv = itemView.findViewById(R.id.cv);
-            time = itemView.findViewById(R.id.time);
+            more = itemView.findViewById(R.id.more);
             heading = itemView.findViewById(R.id.heading);
             cv.setOnClickListener(cvListener);
 
         }}
     class ClickListener implements View.OnClickListener{
 
-        PostValue pv;
+        Event e;
         int pos;
 
         @Override
@@ -100,12 +96,10 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
         }
 
-        void setRecord(PostValue pv,int pos){
-            this.pv = pv;
+        void setRecord(Event e,int pos){
+            this.e = e;
             this.pos = pos;
         }
 
     }
-
-
 }

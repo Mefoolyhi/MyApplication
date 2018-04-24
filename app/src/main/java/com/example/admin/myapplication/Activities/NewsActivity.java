@@ -14,11 +14,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.admin.myapplication.Adapters.NewsAdapter;
-import com.example.admin.myapplication.MyHttpRequest;
-import com.example.admin.myapplication.OnBottomReachedListener;
+import com.example.admin.myapplication.Holy.MyHttpRequest;
+import com.example.admin.myapplication.Holy.OnBottomReachedListener;
 import com.example.admin.myapplication.Parsers.NewsParcer;
 import com.example.admin.myapplication.R;
 import com.example.admin.myapplication.Utils.PostValue;
@@ -51,7 +50,7 @@ public class NewsActivity extends BaseSpiceActivity
     String date(){
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String date = df.format(Calendar.getInstance().getTime());
-        Log.e("DATE",date);
+
         return date;
     }
 

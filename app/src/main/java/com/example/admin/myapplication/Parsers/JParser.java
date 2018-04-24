@@ -12,27 +12,14 @@ import java.util.ArrayList;
 public class JParser {
 
     String LOG_TAG = "Parser";
-    ArrayList<Event> data = new ArrayList<>();
-
-
-
-    public ArrayList<Event> getData() {
-        return data;
-    }
-
-
-
-    public JParser(){
-
-        data.clear();
-    }
 
 
 
 
 
-    public void parse(String jstring) {
+    public ArrayList<Event> parse(String jstring) {
 
+        ArrayList<Event> data = new ArrayList<>();
         try
 
         {
@@ -69,5 +56,6 @@ public class JParser {
     {
         e.printStackTrace();
     }
+    return data;
 }
 }

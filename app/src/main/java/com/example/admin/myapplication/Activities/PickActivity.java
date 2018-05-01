@@ -28,11 +28,15 @@ import com.octo.android.robospice.persistence.DurationInMillis;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class PickActivity extends BaseSpiceActivity implements NavigationView.OnNavigationItemSelectedListener{
 
-    private MyHttpRequest txtRequest;
     JParser jp = new JParser();
 
     RecyclerView rv;
@@ -42,7 +46,8 @@ public class PickActivity extends BaseSpiceActivity implements NavigationView.On
     ArrayList<Event> e = new ArrayList<>();
 
     //String url = "https://afisha.yandex.ru/api/events/selection/all-events-concert/?city=yekaterinburg&limit=12&offset=0&hasMixed=0";
-    String url;
+     String url;
+    boolean used = false;
 //String url = "http://www.justmedia.ru/news/default/getAjaxPreviousItems/?previousItemsPosition=0&previousItemsStep=15&rubric=11&tag=0&delimiterDate=2018-04-19";
 
     @Override
@@ -99,15 +104,30 @@ public class PickActivity extends BaseSpiceActivity implements NavigationView.On
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (data == null) {return;}
         url = data.getStringExtra("url");
-        Log.e("No_Panics",url);
+        Log.e("REsult",url+count);
+        count = 0;
         String first_date = data.getStringExtra("first_date");
         String second_date = data.getStringExtra("second_date");
         String name = data.getStringExtra("name");
         filters.setText(name+", "+date(first_date)+" - "+date(second_date));
-        MyHttpRequest txtRequest = new MyHttpRequest(url);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+
+        try {
+            Date date2 = dateFormat.parse(second_date);
+            Date date1 = dateFormat.parse(first_date);
+            int diff = (int) ((date2.getTime() - date1.getTime()) / (24 * 60 * 60 * 1000));
+            Log.e("Diff", String.valueOf(diff));
+        } catch (ParseException e1) {
+            e1.printStackTrace();
+        }
+
+
+        String s = url + count;
+        MyHttpRequest txtRequest = new MyHttpRequest(s);
+
+
         e.clear();
-        count = 0;
-        getSpiceManager().execute(txtRequest, url, DurationInMillis.ONE_MINUTE,
+        getSpiceManager().execute(txtRequest, s, DurationInMillis.ONE_MINUTE,
                 new TextRequestListener());
 
 
@@ -169,12 +189,12 @@ String date(String input){
 
             Intent intent = new Intent(PickActivity.this, NewsActivity.class);
             startActivity(intent);
-            finish();
+
 
         } else if (id == R.id.nav_choose) {
             Intent intent = new Intent(PickActivity.this, PickActivity.class);
             startActivity(intent);
-            finish();
+
 
         }
 
@@ -189,14 +209,29 @@ int count = 0;
     @Override
     protected void onStart() {
         super.onStart();
-        url  = "https://afisha.yandex.ru/api/events/selection/all-events-theatre/?city=yekaterinburg&limit=12&offset=0&hasMixed=0";
-        MyHttpRequest txtRequest = new MyHttpRequest(url);
+        if (!used) {
+            count = 0;
+            url = "http://afisha.yandex.ru/api/events/selection/all-events-theatre/?city=yekaterinburg&limit=12&hasMixed=0&offset=";
+
+            e.clear();
+            String s = url + count;
+            MyHttpRequest txtRequest = new MyHttpRequest(s);
 
 
-        getSpiceManager().execute(txtRequest, "start", DurationInMillis.ONE_MINUTE,
-                new TextRequestListener());
+            Log.e("Start", s);
+            getSpiceManager().execute(txtRequest, s, DurationInMillis.ONE_MINUTE,
+                    new TextRequestListener());
+            used = true;
+        }
+
 
 }
+
+    String date(){
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        return df.format(Calendar.getInstance().getTime());
+    }
+
 
     public final class TextRequestListener implements RequestListener<String> {
 
@@ -210,6 +245,7 @@ int count = 0;
         @Override
         public void onRequestSuccess(final String result) {
 
+            Log.e("Back",result);
             e.addAll(jp.parse(result));
             rv.setLayoutManager(new LinearLayoutManager(PickActivity.this));
             EventsAdapter adapter = new EventsAdapter(e,PickActivity.this);
@@ -219,12 +255,14 @@ int count = 0;
                 public void onBottomReached(int position) {
 
                     count += 12;
-                    url  = "https://afisha.yandex.ru/api/events/selection/all-events-theatre/?city=yekaterinburg&limit=12&offset="+count+"&hasMixed=0";
-                    MyHttpRequest txtRequest = new MyHttpRequest(url);
+                    String s = url+count;
+                    MyHttpRequest txtRequest = new MyHttpRequest(s);
 
-                    getSpiceManager().execute(txtRequest, "txt" + count, DurationInMillis.ONE_MINUTE,
+                    getSpiceManager().execute(txtRequest, s, DurationInMillis.ONE_MINUTE,
                             new TextRequestListener());
 
+
+                    Log.e("More",s);
 
 
 

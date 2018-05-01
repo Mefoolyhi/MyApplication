@@ -46,8 +46,6 @@ public class JParser {
 
             Event e = new Event(title,id,rating,pr,imageurl,dates,place,url);
             data.add(e);
-            Log.e(LOG_TAG, id + " " + title + " " + rating +
-                    " "+ pr+" "+imageurl+" " + dates+" "+place+ " " + url);
         }
 
     } catch(

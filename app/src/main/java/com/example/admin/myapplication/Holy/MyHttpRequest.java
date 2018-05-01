@@ -24,7 +24,6 @@ import java.net.URL;
 public class MyHttpRequest extends GoogleHttpClientSpiceRequest<String> {
 
     private String baseUrl;
-    String LOG_TAG = "MyHttpRequest";
 
     public MyHttpRequest(String url) {
         super(String.class);

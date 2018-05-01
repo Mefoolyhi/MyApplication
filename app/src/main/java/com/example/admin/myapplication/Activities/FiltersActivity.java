@@ -62,17 +62,26 @@ public class FiltersActivity extends AppCompatActivity {
                 tip = choose[i];
                 switch (choose[i]){
                     case "Концерты":
-                        url = "https://afisha.yandex.ru/api/events/selection/all-events-concert/?city=yekaterinburg&limit=12&offset=0&hasMixed=0";
+                        url = "https://afisha.yandex.ru/api/events/selection/all-events-concert/?city=yekaterinburg&limit=12&hasMixed=0&offset=";
 
 
                         break;
                     case "Спектакли":
-                        url = "https://afisha.yandex.ru/api/events/selection/all-events-theatre/?city=yekaterinburg&limit=12&offset=0&hasMixed=0";
+                        url = "https://afisha.yandex.ru/api/events/selection/all-events-theatre/?city=yekaterinburg&limit=12&hasMixed=0&offset=";
 
 
 
                         break;
+                    case "Детское":
+                        url = "https://afisha.yandex.ru/api/events/selection/all-events-kids/?city=yekaterinburg&limit=12&hasMixed=0&offset=";
+                        break;
 
+                    case "Мюзиклы":
+                        url = "https://afisha.yandex.ru/api/events/selection/all-events-musical/?city=yekaterinburg&limit=12&hasMixed=0&offset=";
+                        break;
+                    case "Шоу":
+                        url = "https://afisha.yandex.ru/api/events/selection/all-events-show/?city=yekaterinburg&limit=12&hasMixed=0&offset=";
+                                break;
                 }
 
 

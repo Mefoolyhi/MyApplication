@@ -33,6 +33,7 @@ public class JParser {
 
 
             String title = friend.getJSONObject("event").getString("title");
+            String id = friend.getJSONObject("event").getString("id");
             String rating = friend.getJSONObject("event").getString("contentRating");
             Double userRating = friend.getJSONObject("event").getJSONObject("userRating").getJSONObject("overall").getDouble("value");
 
@@ -49,32 +50,36 @@ public class JParser {
             JSONObject price = prices.getJSONObject(0).getJSONObject("price");
             String pr = price.getString("min").substring(0,price.getString("min").length() - 2) + "-" + price.getString("max").substring(0,price.getString("max").length() - 2);
 
-            try{
+
                 String OP = friend.getJSONObject("scheduleInfo").getString("onlyPlace");
-            }
-            catch (Exception err) {
-                Log.e("OP",err.getMessage());
-                String place = friend.getJSONObject("scheduleInfo").getJSONObject("onlyPlace").getString("title");
+                if (!OP.equals("null")) {
 
-                String address = friend.getJSONObject("scheduleInfo").getJSONObject("onlyPlace").getString("address");
-                Double longitude = friend.getJSONObject("scheduleInfo").getJSONObject("onlyPlace").getJSONObject("coordinates").getDouble("longitude");
-                Double latitude = friend.getJSONObject("scheduleInfo").getJSONObject("onlyPlace").getJSONObject("coordinates").getDouble("latitude");
+                    String place = friend.getJSONObject("scheduleInfo").getJSONObject("onlyPlace").getString("title");
 
-                String placeImgUrl = "";
-                try {
-                    placeImgUrl = friend.getJSONObject("scheduleInfo").getJSONObject("onlyPlace").getString("logo");
-                    placeImgUrl = "http://www.liceoitaliano.net/wp-content/uploads/2014/07/teatro-150x150.png";
+                    String address = friend.getJSONObject("scheduleInfo").getJSONObject("onlyPlace").getString("address");
+                    Double longitude = friend.getJSONObject("scheduleInfo").getJSONObject("onlyPlace").getJSONObject("coordinates").getDouble("longitude");
+                    Double latitude = friend.getJSONObject("scheduleInfo").getJSONObject("onlyPlace").getJSONObject("coordinates").getDouble("latitude");
 
-                }catch (Exception er){
-                    placeImgUrl = friend.getJSONObject("scheduleInfo").getJSONObject("onlyPlace").getJSONObject("logo").getJSONObject("touchPlaceCover").getString("url");
+
+                        String placeImgUrl = friend.getJSONObject("scheduleInfo").getJSONObject("onlyPlace").getString("logo");
+
+                        if (placeImgUrl.equals("null")) {
+                            placeImgUrl = "http://www.liceoitaliano.net/wp-content/uploads/2014/07/teatro-150x150.png";
+
+                        }
+                        else {
+                            placeImgUrl = friend.getJSONObject("scheduleInfo").getJSONObject("onlyPlace").getJSONObject("logo").getJSONObject("touchPlaceCover").getString("url");
+                        }
+                        String dates = friend.getJSONObject("scheduleInfo").getJSONObject("preview").getString("text");
+
+                        Event e = new Event(longitude, latitude, userRating, title, rating, pr, imageurl, dates, place, toBuy, address, placeImgUrl, tags,id);
+                        data.add(e);
+
+
                 }
 
-                String dates = friend.getJSONObject("scheduleInfo").getJSONObject("preview").getString("text");
-
-                Event e = new Event(longitude, latitude, userRating, title, rating, pr, imageurl, dates, place, toBuy, address, placeImgUrl, tags);
-                data.add(e);
             }
-        }
+
 
     } catch(
     Exception e)

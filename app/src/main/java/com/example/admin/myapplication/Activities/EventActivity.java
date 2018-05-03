@@ -1,6 +1,7 @@
 package com.example.admin.myapplication.Activities;
 
 import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 
 import com.example.admin.myapplication.Adapters.EventsAdapter;
+import com.example.admin.myapplication.Holy.DataHelper;
 import com.example.admin.myapplication.R;
 
 import com.example.admin.myapplication.Utils.Event;
@@ -67,7 +69,23 @@ public class EventActivity extends FragmentActivity implements OnMapReadyCallbac
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                DataHelper dh = new DataHelper(EventActivity.this);
+                ContentValues cv = new ContentValues();
+                cv.put("name",getIntent().getStringExtra("name"));
+                cv.put("rating",getIntent().getStringExtra("rating"));
+                cv.put("imageLink",getIntent().getStringExtra("image"));
+                cv.put("price",getIntent().getStringExtra("price"));
+                cv.put("dates",getIntent().getStringExtra("dates"));
+                cv.put("place",getIntent().getStringExtra("place"));
+                cv.put("buy",getIntent().getStringExtra("buy"));
+                cv.put("address",getIntent().getStringExtra("address"));
+                cv.put("longitude",getIntent().getDoubleExtra("longitude",0));
+                cv.put("latitude",getIntent().getDoubleExtra("latitude",0));
+                cv.put("types",getIntent().getStringExtra("types"));
+                cv.put("placeImage",getIntent().getStringExtra("imagePlace"));
+                cv.put("id",getIntent().getStringExtra("id"));
+                cv.put("userRating",getIntent().getDoubleExtra("UserRating", 0));
+                dh.insert(cv);
             }
         });
         name.setText(getIntent().getStringExtra("name"));

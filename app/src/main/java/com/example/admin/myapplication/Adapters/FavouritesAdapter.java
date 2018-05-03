@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.admin.myapplication.Activities.EventActivity;
+import com.example.admin.myapplication.Holy.DataHelper;
 import com.example.admin.myapplication.Holy.OnBottomReachedListener;
 import com.example.admin.myapplication.R;
 import com.example.admin.myapplication.Utils.Event;
@@ -46,6 +47,7 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Vi
         holder.heading.setText(e.getTitle() + " " + e.getRating());
         holder.picture.setImageURI(e.getImagelink());
         holder.cvListener.setRecord(e,position);
+        holder.butlis.setE(e);
 
         if (position == data.size() - 3){
 
@@ -80,6 +82,7 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Vi
         SimpleDraweeView picture;
         ImageButton delete;
         ClickListener cvListener = new ClickListener();
+        ButtonListener butlis = new ButtonListener();
 
         public ViewHolder(final View itemView) {
             super(itemView);
@@ -89,13 +92,23 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Vi
             heading = itemView.findViewById(R.id.heading);
             cv.setOnClickListener(cvListener);
             delete = itemView.findViewById(R.id.delete);
-            delete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                }
-            });
+            delete.setOnClickListener(butlis);
         }}
+
+        class ButtonListener implements View.OnClickListener{
+
+
+        Event e;
+            @Override
+            public void onClick(View view) {
+                DataHelper dh = new DataHelper(context);
+                dh.delete(e.getId());
+            }
+
+            public void setE(Event e) {
+                this.e = e;
+            }
+        }
     class ClickListener implements View.OnClickListener{
 
         Event e;
@@ -117,6 +130,7 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Vi
             intent.putExtra("longitude",e.getLongitude());
             intent.putExtra("latitude",e.getLatitude());
             intent.putExtra("buy",e.getToBuy());
+            intent.putExtra("id",e.getId());
             context.startActivity(intent);
 
 

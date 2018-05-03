@@ -31,11 +31,7 @@ public class DataHelper extends SQLiteOpenHelper {
 
     }
 
-    public void update(ContentValues cv, int id){
-        this.openDataBase();
-        myDataBase.update("favourites",cv,"_id=?",new String[]{String.valueOf(id)});
-        myDataBase.close();
-    }
+
     public void delete(String id){
         try {
             this.openDataBase();
@@ -119,7 +115,7 @@ public class DataHelper extends SQLiteOpenHelper {
         Cursor c = query("favourites", null, null, null, null, null, null);
         c.moveToPosition(id);
         Event e = new Event(c.getDouble(11),c.getDouble(12),c.getDouble(10),c.getString(0),c.getString(1),c.getString(3),c.getString(2),
-                c.getString(4),c.getString(5),c.getString(6),c.getString(7),c.getString(8),c.getString(9));
+                c.getString(4),c.getString(5),c.getString(6),c.getString(7),c.getString(8),c.getString(9),c.getString(13));
        myDataBase.close();
         return e;
 
@@ -142,7 +138,7 @@ public class DataHelper extends SQLiteOpenHelper {
         if (c.moveToFirst()) {
             do {
                 Event e = new Event(c.getDouble(11),c.getDouble(12),c.getDouble(10),c.getString(0),c.getString(1),c.getString(3),c.getString(2),
-                        c.getString(4),c.getString(5),c.getString(6),c.getString(7),c.getString(8),c.getString(9));
+                        c.getString(4),c.getString(5),c.getString(6),c.getString(7),c.getString(8),c.getString(9),c.getString(13));
                 data.add(e);
             } while (c.moveToNext());
         }

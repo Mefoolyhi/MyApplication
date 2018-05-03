@@ -110,6 +110,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
             intent.putExtra("longitude",e.getLongitude());
             intent.putExtra("latitude",e.getLatitude());
             intent.putExtra("buy",e.getToBuy());
+            intent.putExtra("id",e.getId());
             context.startActivity(intent);
 
 

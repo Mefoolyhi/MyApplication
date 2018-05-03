@@ -61,17 +61,25 @@ public class Event {
         this.latitude = latitude;
     }
 
-    String title,rating,imagelink,price,dates,place, toBuy, address, placeImgUrl;
+    String title,rating,imagelink,price,dates,place, toBuy, address, placeImgUrl,id;
     String types;
     Double userRating,longitude,latitude;
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public Event(Double longitude, Double latitude, Double userRating, String name, String rating, String price, String imagelink, String dates,
-                 String place, String toBuy, String address, String placeImgUrl, String types){
+                 String place, String toBuy, String address, String placeImgUrl, String types, String id){
 
         this.latitude = latitude;
         this.longitude = longitude;
         this.userRating = userRating;
-
+this.id = id;
         this.title = name;
         this.price = price;
         this.rating = rating;

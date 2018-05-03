@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Activities.EventActivity">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/at"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/at"
+        >
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    >
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/add_to_fav"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="17sp"
+        android:textAlignment="center"
+        android:textColor="#000"
+        android:layout_margin="5dp"
+        android:text="Theatre 6+"
+        android:id="@+id/type_rating"
+        android:layout_alignParentTop="true"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:text="Лебединое озеро"
+        android:textAlignment="center"
+        android:textColor="#000"
+
+        android:layout_margin="5dp"
+        android:textStyle="bold"
+        android:layout_toRightOf="@+id/image"
+        android:id="@+id/name"
+        android:layout_below="@+id/type_rating"
+
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_margin="5dp"
+        android:id="@+id/dates_place"
+        android:text="may, june"
+        android:textAlignment="center"
+        android:textColor="#000"
+        android:textSize="17sp"
+        android:layout_toRightOf="@+id/image"
+        android:layout_below="@+id/name"
+
+
+
+        />
+    <Button
+        android:layout_width="50dp"
+        android:layout_height="30dp"
+        android:clickable="false"
+        android:id="@+id/UserRating"
+
+        android:layout_margin="5dp"
+        android:text="9.2"
+        android:background="@color/green"
+        android:layout_toRightOf="@+id/re"
+        android:layout_below="@id/dates_place"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_margin="5dp"
+        android:id="@+id/price"
+        android:text="2000 - 8000"
+        android:textAlignment="center"
+        android:textColor="#000"
+        android:textSize="17sp"
+        android:layout_toRightOf="@+id/image"
+        android:layout_below="@+id/UserRating"
+
+
+
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:id="@+id/place"
+        android:text="Театр оперы и балета"
+        android:textAlignment="center"
+        android:textColor="#000"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:layout_toRightOf="@+id/imagePlace"
+        android:layout_below="@+id/price"
+
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:id="@+id/re"
+        android:text="Рейтинг"
+        android:textAlignment="center"
+        android:textColor="#000"
+        android:textSize="17sp"
+        android:layout_below="@+id/dates_place"
+        android:layout_toRightOf="@+id/image"
+
+
+
+
+
+
+        />
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:id="@+id/image"
+
+        android:layout_margin="5dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/type_rating"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:id="@+id/address"
+        android:text="лаблабла, 45"
+        android:textAlignment="center"
+        android:textColor="#000"
+        android:textSize="17sp"
+        android:layout_below="@+id/place"
+        android:layout_toRightOf="@+id/imagePlace"
+        />
+
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/imagePlace"
+
+        android:layout_margin="5dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/image"
+        />
+
+    <fragment
+        android:id="@+id/map"
+        android:layout_margin="5dp"
+        android:layout_below="@+id/imagePlace"
+
+    map:cameraBearing="112.5"
+    map:cameraTilt="30"
+    map:cameraZoom="13"
+    map:mapType="normal"
+
+
+    android:name="com.google.android.gms.maps.MapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        />
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buy"
+        android:text="Купить билет"
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dp"
+        android:layout_below="@+id/map"
+
+        />
+</RelativeLayout>
+
+</ScrollView>
+</RelativeLayout>

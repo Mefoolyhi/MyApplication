@@ -104,7 +104,6 @@ public class PickActivity extends BaseSpiceActivity implements NavigationView.On
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (data == null) {return;}
         url = data.getStringExtra("url");
-        Log.e("REsult",url+count);
         count = 0;
         String first_date = data.getStringExtra("first_date");
         String second_date = data.getStringExtra("second_date");
@@ -112,21 +111,36 @@ public class PickActivity extends BaseSpiceActivity implements NavigationView.On
         filters.setText(name+", "+date(first_date)+" - "+date(second_date));
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
+        int diff = 1;
         try {
             Date date2 = dateFormat.parse(second_date);
             Date date1 = dateFormat.parse(first_date);
-            int diff = (int) ((date2.getTime() - date1.getTime()) / (24 * 60 * 60 * 1000));
-            Log.e("Diff", String.valueOf(diff));
+             diff += (int) ((date2.getTime() - date1.getTime()) / (24 * 60 * 60 * 1000));
+
         } catch (ParseException e1) {
             e1.printStackTrace();
         }
 
 
-        String s = url + count;
+        String s;
+        if (!first_date.equals("Нажмите, чтобы выбрать дату") && !second_date.equals("Нажмите, чтобы выбрать дату")) {
+            url += "&date=" + first_date.substring(6, 10) + "-" + first_date.substring(3, 5) + "-" + first_date.substring(0, 2) + "&period=" + diff;
+        }
+        else if (!first_date.equals("Нажмите, чтобы выбрать дату")){
+            url += "&date=" + first_date.substring(6, 10) + "-" + first_date.substring(3, 5) + "-" + first_date.substring(0, 2);
+        }
+        else if (!second_date.equals("Нажмите, чтобы выбрать дату")){
+            url += "&date=" + second_date.substring(6, 10) + "-" + second_date.substring(3, 5) + "-" + second_date.substring(0, 2);
+        }
+
+            s = url +"&offset="+ count;
+
+
         MyHttpRequest txtRequest = new MyHttpRequest(s);
 
 
         e.clear();
+        Log.e("Ref",s);
         getSpiceManager().execute(txtRequest, s, DurationInMillis.ONE_MINUTE,
                 new TextRequestListener());
 
@@ -196,6 +210,11 @@ String date(String input){
             startActivity(intent);
 
 
+        } else if (id == R.id.nav_fav) {
+            Intent intent = new Intent(PickActivity.this, FavouritesActivity.class);
+            startActivity(intent);
+            finish();
+
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -211,10 +230,10 @@ int count = 0;
         super.onStart();
         if (!used) {
             count = 0;
-            url = "http://afisha.yandex.ru/api/events/selection/all-events-theatre/?city=yekaterinburg&limit=12&hasMixed=0&offset=";
+            url = "http://afisha.yandex.ru/api/events/selection/all-events-theatre/?city=yekaterinburg&limit=12&hasMixed=0";
 
             e.clear();
-            String s = url + count;
+            String s = url +"&offset="+ count;
             MyHttpRequest txtRequest = new MyHttpRequest(s);
 
 
@@ -226,6 +245,7 @@ int count = 0;
 
 
 }
+
 
     String date(){
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -255,7 +275,7 @@ int count = 0;
                 public void onBottomReached(int position) {
 
                     count += 12;
-                    String s = url+count;
+                    String s = url+"&offset="+count;
                     MyHttpRequest txtRequest = new MyHttpRequest(s);
 
                     getSpiceManager().execute(txtRequest, s, DurationInMillis.ONE_MINUTE,

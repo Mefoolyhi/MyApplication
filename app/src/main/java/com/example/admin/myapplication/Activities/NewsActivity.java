@@ -116,6 +116,11 @@ public class NewsActivity extends BaseSpiceActivity
             startActivity(intent);
             finish();
 
+        } else if (id == R.id.nav_fav) {
+            Intent intent = new Intent(NewsActivity.this, FavouritesActivity.class);
+            startActivity(intent);
+            finish();
+
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

@@ -16,5 +16,7 @@
         <item>Детское</item>
     </string-array>
     <string name="title_activity_filters">FiltersActivity</string>
+    <string name="title_activity_favourites">FavouritesActivity</string>
+    <string name="action_settings">Settings</string>
 
 </resources>

@@ -62,25 +62,25 @@ public class FiltersActivity extends AppCompatActivity {
                 tip = choose[i];
                 switch (choose[i]){
                     case "Концерты":
-                        url = "https://afisha.yandex.ru/api/events/selection/all-events-concert/?city=yekaterinburg&limit=12&hasMixed=0&offset=";
+                        url = "https://afisha.yandex.ru/api/events/selection/all-events-concert/?city=yekaterinburg&limit=12&hasMixed=0";
 
 
                         break;
                     case "Спектакли":
-                        url = "https://afisha.yandex.ru/api/events/selection/all-events-theatre/?city=yekaterinburg&limit=12&hasMixed=0&offset=";
+                        url = "https://afisha.yandex.ru/api/events/selection/all-events-theatre/?&city=yekaterinburg&limit=12&hasMixed=0";
 
 
 
                         break;
                     case "Детское":
-                        url = "https://afisha.yandex.ru/api/events/selection/all-events-kids/?city=yekaterinburg&limit=12&hasMixed=0&offset=";
+                        url = "https://afisha.yandex.ru/api/events/selection/all-events-kids/?city=yekaterinburg&limit=12&hasMixed=0";
                         break;
 
                     case "Мюзиклы":
-                        url = "https://afisha.yandex.ru/api/events/selection/all-events-musical/?city=yekaterinburg&limit=12&hasMixed=0&offset=";
+                        url = "https://afisha.yandex.ru/api/events/selection/all-events-musical/?city=yekaterinburg&limit=12&hasMixed=0";
                         break;
                     case "Шоу":
-                        url = "https://afisha.yandex.ru/api/events/selection/all-events-show/?city=yekaterinburg&limit=12&hasMixed=0&offset=";
+                        url = "https://afisha.yandex.ru/api/events/selection/all-events-show/?city=yekaterinburg&limit=12&hasMixed=0";
                                 break;
                 }
 
@@ -179,12 +179,12 @@ public class FiltersActivity extends AppCompatActivity {
             else
                 m = String.valueOf(month);
             if (id == 1) {
-                first.setText(d + "." + m + "." + year);
+                first.setText(d + "-" + m + "-" + year);
                 first.setTextSize(20);
                 first.setTextColor(Color.rgb(0,0,0));
             }
             else {
-                second.setText(d + "." + m + "." + year);
+                second.setText(d + "-" + m + "-" + year);
                 second.setTextSize(20);
                 second.setTextColor(Color.rgb(0,0,0));
             }

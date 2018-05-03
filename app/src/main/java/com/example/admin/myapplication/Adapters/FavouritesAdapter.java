@@ -7,18 +7,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.admin.myapplication.Activities.EventActivity;
 import com.example.admin.myapplication.Holy.OnBottomReachedListener;
 import com.example.admin.myapplication.R;
 import com.example.admin.myapplication.Utils.Event;
-import com.example.admin.myapplication.Utils.PostValue;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
 
-public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder> {
+public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.ViewHolder> {
     private Context context;
 
     private ArrayList<Event> data;
@@ -33,7 +33,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.event_list_item, parent, false);
+                .inflate(R.layout.fav_list_item, parent, false);
 
        ViewHolder vh = new ViewHolder(v);
         return vh;
@@ -62,7 +62,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         this.data = data;
     }
 
-    public EventsAdapter(ArrayList<Event> data, Context context){
+    public FavouritesAdapter(ArrayList<Event> data, Context context){
         this.data = data;
         this.context = context;
     }
@@ -78,6 +78,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         CardView cv;
         TextView more,heading;
         SimpleDraweeView picture;
+        ImageButton delete;
         ClickListener cvListener = new ClickListener();
 
         public ViewHolder(final View itemView) {
@@ -87,7 +88,13 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
             more = itemView.findViewById(R.id.more);
             heading = itemView.findViewById(R.id.heading);
             cv.setOnClickListener(cvListener);
+            delete = itemView.findViewById(R.id.delete);
+            delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
+                }
+            });
         }}
     class ClickListener implements View.OnClickListener{
 

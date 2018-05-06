@@ -52,7 +52,7 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Vi
         holder.heading.setText(e.getTitle() + " " + e.getRating());
         holder.picture.setImageURI(e.getImagelink());
         holder.cvListener.setRecord(e,position);
-        holder.butlis.setE(e);
+        holder.butlis.setE(e,position);
 
         if (position == data.size() - 3){
 
@@ -109,6 +109,7 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Vi
 
 
         Event e;
+        int pos;
             @Override
             public void onClick(View view) {
                 DataHelper dh = new DataHelper(context);
@@ -116,14 +117,16 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Vi
                 Log.e("Delete","Done");
                 Snackbar.make(view, "Удалено из избранного", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-                notifyItemRangeChanged(0,data.size() - 1);
+
+                notifyItemRemoved(pos);
 
 
 
             }
 
-            public void setE(Event e) {
+            public void setE(Event e, int pos) {
                 this.e = e;
+                this.pos = pos;
             }
         }
     class ClickListener implements View.OnClickListener{

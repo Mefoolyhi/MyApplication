@@ -60,6 +60,7 @@ public class EventActivity extends AppCompatActivity {
                Intent intent = new Intent(EventActivity.this, MapsActivity.class);
                intent.putExtra("longitude",longitude);
                intent.putExtra("latitude",latitude);
+               intent.putExtra("name",getIntent().getStringExtra("place"));
                startActivity(intent);
            }
        });

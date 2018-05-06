@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -69,7 +70,22 @@ public class NewsActivity extends BaseSpiceActivity
         Fresco.initialize(this);
         setContentView(R.layout.activity_main2);
         Toolbar toolbar =  findViewById(R.id.toolbar);
+        toolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    rv.scrollToPosition(0);
+                    Log.e("TAP","TAPTAPTAP");
+                }
+                catch (Exception e){
+
+
+                }
+            }
+        });
         setSupportActionBar(toolbar);
+
+
 
 
         rv = findViewById(R.id.rv_news);

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,12 +29,13 @@ import com.example.admin.myapplication.Utils.Event;
 import java.util.ArrayList;
 
 public class FavouritesActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,  SwipeRefreshLayout.OnRefreshListener {
 
     RecyclerView rv;
     ProgressBar pb;
     TextView error;
     ArrayList<Event> e;
+    private SwipeRefreshLayout mSwipeRefresh;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +55,12 @@ public class FavouritesActivity extends AppCompatActivity
 
 
         pb.setVisibility(View.VISIBLE);
+        mSwipeRefresh =  findViewById(R.id.swipe_refresh);
+        mSwipeRefresh.setOnRefreshListener(this);
+        //Настраиваем цветовую тему значка обновления, используя наши цвета:
+//        mSwipeRefresh.setColorSchemeResources
+//                (R.color.light_blue, R.color.middle_blue,R.color.deep_blue);
+
         error.setVisibility(View.INVISIBLE);
 
         try {
@@ -118,5 +126,33 @@ public class FavouritesActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onRefresh() {
+        try {
+            pb.setVisibility(View.VISIBLE);
+
+            error.setVisibility(View.INVISIBLE);
+            rv = findViewById(R.id.rv);
+            rv.setItemAnimator(new DefaultItemAnimator());
+            rv.setLayoutManager(new LinearLayoutManager(this));
+
+            DataHelper dt = new DataHelper(this);
+            e = dt.getFavourites();
+            rv.setAdapter(new FavouritesAdapter(e, this));
+
+            pb.setVisibility(View.INVISIBLE);
+
+            mSwipeRefresh.setRefreshing(false);
+        } catch (Exception e){
+            Log.e("Fav",e.getMessage());
+            pb.setVisibility(View.INVISIBLE);
+            error.setText("Что-то пошло не так, попробуйте чуть позже");
+            error.setVisibility(View.VISIBLE);
+
+            mSwipeRefresh.setRefreshing(false);
+        }
+
     }
 }

@@ -89,6 +89,7 @@ public class JParser {
 
 
     }
+    Log.e("Pars", String.valueOf(data.size()));
     return data;
 }
 }

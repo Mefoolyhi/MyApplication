@@ -5,7 +5,11 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -32,26 +36,33 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 
 
-public class EventActivity extends FragmentActivity implements OnMapReadyCallback {
+public class EventActivity extends AppCompatActivity {
 
 
-    MapFragment mapFragment;
-    GoogleMap map;
-    Marker marker;
 
     ImageButton add;
     TextView type_rating, name, dates_place, price, place, address;
     SimpleDraweeView image, imagePlace;
-    Button buy, UserRating;
+    Button buy, UserRating, map;
     double longitude, latitude;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
-        mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+       map = findViewById(R.id.map);
 
+       map.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               Intent intent = new Intent(EventActivity.this, MapsActivity.class);
+               intent.putExtra("longitude",longitude);
+               intent.putExtra("latitude",latitude);
+               startActivity(intent);
+           }
+       });
 
 
         type_rating = findViewById(R.id.type_rating);
@@ -64,6 +75,13 @@ public class EventActivity extends FragmentActivity implements OnMapReadyCallbac
         imagePlace = findViewById(R.id.imagePlace);
         buy = findViewById(R.id.buy);
         UserRating = findViewById(R.id.UserRating);
+        Toolbar toolbar =  findViewById(R.id.toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         add = findViewById(R.id.add_to_fav);
         add.setOnClickListener(new View.OnClickListener() {
@@ -86,6 +104,8 @@ public class EventActivity extends FragmentActivity implements OnMapReadyCallbac
                 cv.put("id",getIntent().getStringExtra("id"));
                 cv.put("userRating",getIntent().getDoubleExtra("UserRating", 0));
                 dh.insert(cv);
+                Snackbar.make(view, "Добавлено в избранное", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
         name.setText(getIntent().getStringExtra("name"));
@@ -124,14 +144,6 @@ public class EventActivity extends FragmentActivity implements OnMapReadyCallbac
 
 
 
-    }
-    @Override
-    public void onMapReady(GoogleMap map) {
-        this.map = map;
-        this.map.addMarker(new MarkerOptions()
-                .position(new LatLng(latitude,longitude))
-                .title(getIntent().getStringExtra("place")));
-        this.map.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(latitude,longitude)));
     }
 
 

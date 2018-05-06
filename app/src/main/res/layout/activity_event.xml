@@ -5,7 +5,6 @@
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Activities.EventActivity">
     <android.support.design.widget.AppBarLayout
@@ -19,28 +18,20 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimary"
+            app:navigationIcon="?attr/homeAsUpIndicator"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
 
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/at"
-        >
 
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-
-    >
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/add_to_fav"
+        android:src="@drawable/ic_favorite_black_24dp"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/at"
         />
     <TextView
         android:layout_width="match_parent"
@@ -48,10 +39,10 @@
         android:textSize="17sp"
         android:textAlignment="center"
         android:textColor="#000"
+        android:layout_below="@+id/at"
         android:layout_margin="5dp"
         android:text="Theatre 6+"
         android:id="@+id/type_rating"
-        android:layout_alignParentTop="true"
         />
     <TextView
         android:layout_width="wrap_content"
@@ -179,21 +170,16 @@
         android:layout_below="@+id/image"
         />
 
-    <fragment
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+
+        android:text="Как проехать"
+        android:layout_margin="16dp"
+        android:layout_alignParentBottom="true"
         android:id="@+id/map"
-        android:layout_margin="5dp"
-        android:layout_below="@+id/address"
-
-    map:cameraBearing="112.5"
-    map:cameraTilt="30"
-    map:cameraZoom="13"
-    map:mapType="normal"
-
-
-    android:name="com.google.android.gms.maps.MapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-
         />
 
 
@@ -204,10 +190,7 @@
         android:text="Купить билет"
         android:layout_alignParentRight="true"
         android:layout_margin="16dp"
-        android:layout_below="@+id/map"
+        android:layout_alignParentBottom="true"
 
         />
-</RelativeLayout>
-
-</ScrollView>
 </RelativeLayout>

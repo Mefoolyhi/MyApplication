@@ -35,7 +35,7 @@ public class DataHelper extends SQLiteOpenHelper {
     public void delete(String id){
         try {
             this.openDataBase();
-            myDataBase.delete("favourites", "id=" + id, null);
+            myDataBase.delete("favourites", "id=" + "'" + id + "'", null);
 
             myDataBase.close();
         }

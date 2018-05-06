@@ -1,10 +1,12 @@
 package com.example.admin.myapplication.Activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -35,15 +37,17 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class PickActivity extends BaseSpiceActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class PickActivity extends BaseSpiceActivity implements NavigationView.OnNavigationItemSelectedListener, SwipeRefreshLayout.OnRefreshListener {
 
     JParser jp = new JParser();
 
     RecyclerView rv;
     ProgressBar pb;
+    private SwipeRefreshLayout mSwipeRefresh;
     TextView filters,error;
     ImageButton filt;
     ArrayList<Event> e = new ArrayList<>();
+    Bundle bundle = new Bundle();
 
     //String url = "https://afisha.yandex.ru/api/events/selection/all-events-concert/?city=yekaterinburg&limit=12&offset=0&hasMixed=0";
      String url;
@@ -68,6 +72,12 @@ public class PickActivity extends BaseSpiceActivity implements NavigationView.On
 
         pb.setVisibility(View.VISIBLE);
         error.setVisibility(View.INVISIBLE);
+
+        mSwipeRefresh =  findViewById(R.id.swipe_refresh);
+        mSwipeRefresh.setOnRefreshListener(this);
+        //Настраиваем цветовую тему значка обновления, используя наши цвета:
+//        mSwipeRefresh.setColorSchemeResources
+//                (R.color.light_blue, R.color.middle_blue,R.color.deep_blue);
 
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -230,12 +240,13 @@ int count = 0;
         super.onStart();
         if (!used) {
             count = 0;
-            url = "http://afisha.yandex.ru/api/events/selection/all-events-theatre/?city=yekaterinburg&limit=12&hasMixed=0";
+            url = "https://afisha.yandex.ru/api/events/selection/all-events-theatre/?city=yekaterinburg&limit=12&hasMixed=0";
 
             e.clear();
             String s = url +"&offset="+ count;
             MyHttpRequest txtRequest = new MyHttpRequest(s);
 
+            pb.setVisibility(View.VISIBLE);
 
             Log.e("Start", s);
             getSpiceManager().execute(txtRequest, s, DurationInMillis.ONE_MINUTE,
@@ -252,21 +263,56 @@ int count = 0;
         return df.format(Calendar.getInstance().getTime());
     }
 
+    @Override
+    public void onRefresh() {
+        count = 0;
+
+        bundle = new Bundle();
+        pb.setVisibility(View.VISIBLE);
+
+        error.setVisibility(View.INVISIBLE);
+
+        e.clear();
+        String s = url +"&offset="+ count;
+        MyHttpRequest txtRequest = new MyHttpRequest(s);
+
+
+        Log.e("Start", s);
+        getSpiceManager().execute(txtRequest, s, DurationInMillis.ONE_MINUTE,
+                new TextRequestListener());
+
+    }
+
 
     public final class TextRequestListener implements RequestListener<String> {
 
         @Override
         public void onRequestFailure(SpiceException spiceException) {
-            error.setText("Проблемы с подключением к интернету");
+            error.setText(url+"&offset="+count);
+            error.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url+"&offset="+count));
+
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                }
+            });
             error.setVisibility(View.VISIBLE);
             pb.setVisibility(View.INVISIBLE);
+
+            mSwipeRefresh.setRefreshing(false);
         }
 
         @Override
         public void onRequestSuccess(final String result) {
 
-            Log.e("Back",result);
             e.addAll(jp.parse(result));
+
+            mSwipeRefresh.setRefreshing(false);
+            if (count != 0) {
+                bundle.putParcelable("SAVED_LAYOUT_MANAGER", rv.getLayoutManager().onSaveInstanceState());
+            }
             rv.setLayoutManager(new LinearLayoutManager(PickActivity.this));
             EventsAdapter adapter = new EventsAdapter(e,PickActivity.this);
 
@@ -281,6 +327,9 @@ int count = 0;
                     getSpiceManager().execute(txtRequest, s, DurationInMillis.ONE_MINUTE,
                             new TextRequestListener());
 
+                    pb.setVisibility(View.VISIBLE);
+
+                    error.setVisibility(View.INVISIBLE);
 
                     Log.e("More",s);
 
@@ -290,6 +339,8 @@ int count = 0;
                 }
             });
             rv.setAdapter(adapter);
+
+            rv.getLayoutManager().onRestoreInstanceState(( bundle).getParcelable("SAVED_LAYOUT_MANAGER"));
             pb.setVisibility(View.INVISIBLE);
 
         }

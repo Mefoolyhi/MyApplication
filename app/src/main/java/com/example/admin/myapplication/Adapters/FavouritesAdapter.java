@@ -2,8 +2,12 @@ package com.example.admin.myapplication.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.admin.myapplication.Activities.EventActivity;
+import com.example.admin.myapplication.Activities.FavouritesActivity;
 import com.example.admin.myapplication.Holy.DataHelper;
 import com.example.admin.myapplication.Holy.OnBottomReachedListener;
 import com.example.admin.myapplication.R;
@@ -81,17 +86,22 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Vi
         TextView more,heading;
         SimpleDraweeView picture;
         ImageButton delete;
+        RecyclerView rv;
         ClickListener cvListener = new ClickListener();
-        ButtonListener butlis = new ButtonListener();
+
+        ButtonListener butlis;
+
 
         public ViewHolder(final View itemView) {
             super(itemView);
             picture = itemView.findViewById(R.id.pic_ev);
             cv = itemView.findViewById(R.id.cv);
+            rv = itemView.findViewById(R.id.rv);
             more = itemView.findViewById(R.id.more);
             heading = itemView.findViewById(R.id.heading);
             cv.setOnClickListener(cvListener);
             delete = itemView.findViewById(R.id.delete);
+            butlis = new ButtonListener();
             delete.setOnClickListener(butlis);
         }}
 
@@ -103,6 +113,13 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Vi
             public void onClick(View view) {
                 DataHelper dh = new DataHelper(context);
                 dh.delete(e.getId());
+                Log.e("Delete","Done");
+                Snackbar.make(view, "Удалено из избранного", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                notifyItemRangeChanged(0,data.size() - 1);
+
+
+
             }
 
             public void setE(Event e) {

@@ -1,10 +1,13 @@
 package com.example.admin.myapplication.Activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,10 +19,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.admin.myapplication.Adapters.NewsAdapter;
+import com.example.admin.myapplication.Holy.DataHelper;
 import com.example.admin.myapplication.Holy.MyHttpRequest;
 import com.example.admin.myapplication.Holy.OnBottomReachedListener;
 import com.example.admin.myapplication.Parsers.NewsParcer;
 import com.example.admin.myapplication.R;
+import com.example.admin.myapplication.Utils.Event;
 import com.example.admin.myapplication.Utils.PostValue;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.octo.android.robospice.persistence.DurationInMillis;
@@ -32,13 +37,15 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class NewsActivity extends BaseSpiceActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, SwipeRefreshLayout.OnRefreshListener {
 
     ArrayList<PostValue> news = new ArrayList<>();
     RecyclerView rv;
     NewsParcer np = new NewsParcer();
     ProgressBar pb;
     TextView eror;
+    Bundle bundle = new Bundle();
+    private SwipeRefreshLayout mSwipeRefresh;
 
 
     int count = 0;
@@ -63,6 +70,16 @@ public class NewsActivity extends BaseSpiceActivity
         setContentView(R.layout.activity_main2);
         Toolbar toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                rv.setLayoutManager(new LinearLayoutManager(NewsActivity.this));
+                Log.e("Up","TAP");
+                rv.getLayoutManager().onRestoreInstanceState(( bundle).getParcelable("SAVED_LAYOUT_MANAGER"));
+
+            }
+        });
 
         rv = findViewById(R.id.rv_news);
 
@@ -71,6 +88,11 @@ public class NewsActivity extends BaseSpiceActivity
         pb.setVisibility(View.VISIBLE);
         eror.setVisibility(View.INVISIBLE);
 
+        mSwipeRefresh =  findViewById(R.id.swipe_refresh);
+        mSwipeRefresh.setOnRefreshListener(this);
+        //Настраиваем цветовую тему значка обновления, используя наши цвета:
+//        mSwipeRefresh.setColorSchemeResources
+//                (R.color.light_blue, R.color.middle_blue,R.color.deep_blue);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -83,6 +105,28 @@ public class NewsActivity extends BaseSpiceActivity
 
         navigationView.getMenu().getItem(0).setChecked(true);
 
+
+        SharedPreferences sp = getSharedPreferences("hasVisited",
+                Context.MODE_PRIVATE);
+        // проверяем, первый ли раз открывается программа
+        boolean hasVisited = sp.getBoolean("hasVisited", false);
+
+        if (!hasVisited) {
+            ArrayList<Event> r = new ArrayList<>();
+
+            try {
+                DataHelper dh = new DataHelper(this);
+                 r = dh.getFavourites();
+
+            } catch (Exception e){
+                Log.e("Begin",e.getMessage() + " " + String.valueOf(r.size()));
+            }
+
+            SharedPreferences.Editor e = sp.edit();
+            e.putBoolean("hasVisited", true);
+            e.commit();
+
+        }
 
 
     }
@@ -133,10 +177,35 @@ public class NewsActivity extends BaseSpiceActivity
     protected void onStart() {
         super.onStart();
         count = 0;
+        news.clear();
+        url = "http://www.justmedia.ru/news/default/getAjaxPreviousItems/?previousItemsPosition="+ count + "&previousItemsStep=15&rubric=11&tag=0&delimiterDate=" + date();
+
+
+        MyHttpRequest txtRequest = new MyHttpRequest(url);
+
+
+
+        pb.setVisibility(View.VISIBLE);
+
+        getSpiceManager().execute(txtRequest, "txt", DurationInMillis.ONE_MINUTE,
+                new TextRequestListener());
+
+    }
+
+    @Override
+    public void onRefresh() {
+        news.clear();
+        count = 0;
+        bundle = new Bundle();
         url = "http://www.justmedia.ru/news/default/getAjaxPreviousItems/?previousItemsPosition="+ count + "&previousItemsStep=15&rubric=11&tag=0&delimiterDate=" + date();
 
         MyHttpRequest txtRequest = new MyHttpRequest(url);
 
+
+        pb.setVisibility(View.VISIBLE);
+
+
+        eror.setVisibility(View.INVISIBLE);
 
         getSpiceManager().execute(txtRequest, "txt", DurationInMillis.ONE_MINUTE,
                 new TextRequestListener());
@@ -150,6 +219,7 @@ public class NewsActivity extends BaseSpiceActivity
             eror.setText("Проблемы с подключением к интернету");
             eror.setVisibility(View.VISIBLE);
             pb.setVisibility(View.INVISIBLE);
+            mSwipeRefresh.setRefreshing(false);
         }
 
 
@@ -157,8 +227,13 @@ public class NewsActivity extends BaseSpiceActivity
         public void onRequestSuccess(final String result) {
 
 
+            mSwipeRefresh.setRefreshing(false);
 
             news.addAll(np.parse(result));
+
+            if (count != 0) {
+                bundle.putParcelable("SAVED_LAYOUT_MANAGER", rv.getLayoutManager().onSaveInstanceState());
+            }
             rv.setLayoutManager(new LinearLayoutManager(NewsActivity.this));
             NewsAdapter adapter = new NewsAdapter(news, NewsActivity.this);
 
@@ -169,6 +244,11 @@ public class NewsActivity extends BaseSpiceActivity
                     url = "http://www.justmedia.ru/news/default/getAjaxPreviousItems/?previousItemsPosition="+ count + "&previousItemsStep=15&rubric=11&tag=0&delimiterDate=" + date();
                     MyHttpRequest txtRequest = new MyHttpRequest(url);
 
+
+
+
+                    eror.setVisibility(View.INVISIBLE);
+                    pb.setVisibility(View.VISIBLE);
                     getSpiceManager().execute(txtRequest, "txt" + count, DurationInMillis.ONE_MINUTE,
                             new TextRequestListener());
 
@@ -179,6 +259,7 @@ public class NewsActivity extends BaseSpiceActivity
                 }
             });
             rv.setAdapter(adapter);
+            rv.getLayoutManager().onRestoreInstanceState(( bundle).getParcelable("SAVED_LAYOUT_MANAGER"));
             pb.setVisibility(View.INVISIBLE);
 
         }

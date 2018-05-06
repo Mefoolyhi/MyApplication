@@ -70,16 +70,7 @@ public class NewsActivity extends BaseSpiceActivity
         setContentView(R.layout.activity_main2);
         Toolbar toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                rv.setLayoutManager(new LinearLayoutManager(NewsActivity.this));
-                Log.e("Up","TAP");
-                rv.getLayoutManager().onRestoreInstanceState(( bundle).getParcelable("SAVED_LAYOUT_MANAGER"));
 
-            }
-        });
 
         rv = findViewById(R.id.rv_news);
 

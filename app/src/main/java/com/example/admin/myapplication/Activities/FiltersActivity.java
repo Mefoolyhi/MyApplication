@@ -10,17 +10,20 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.admin.myapplication.Holy.MyHttpRequest;
 import com.example.admin.myapplication.R;
+import com.leavjenn.smoothdaterangepicker.date.SmoothDateRangePickerFragment;
 
 import java.util.Calendar;
 
@@ -31,7 +34,8 @@ public class FiltersActivity extends AppCompatActivity {
     Button back,go;
 
     String url = "", tip;
-    TextView first,second;
+    ImageButton date;
+    String date1 = "",date2 = "";
 
 
     @Override
@@ -44,8 +48,7 @@ public class FiltersActivity extends AppCompatActivity {
         type = findViewById(R.id.spinner);
         back = findViewById(R.id.back);
         go = findViewById(R.id.ready);
-        first = findViewById(R.id.first_date);
-        second = findViewById(R.id.second_date);
+        date = findViewById(R.id.date);
 
         ArrayAdapter<?> adapter =
                 ArrayAdapter.createFromResource(FiltersActivity.this, R.array.types, android.R.layout.simple_spinner_item);
@@ -56,9 +59,7 @@ public class FiltersActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String[] choose = getResources().getStringArray(R.array.types);
-                Toast toast = Toast.makeText(FiltersActivity.this,
-                        "Ваш выбор: " + choose[i], Toast.LENGTH_SHORT);
-                toast.show();
+
                 tip = choose[i];
                 switch (choose[i]){
                     case "Концерты":
@@ -93,31 +94,61 @@ public class FiltersActivity extends AppCompatActivity {
             }
         });
 
-
-        first.setOnClickListener(new View.OnClickListener() {
+        date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogFragment dateDialog = new DatePicker();
-                dateDialog.show(getFragmentManager(), "first");
+                SmoothDateRangePickerFragment smoothDateRangePickerFragment = SmoothDateRangePickerFragment.newInstance(
+                        new SmoothDateRangePickerFragment.OnDateRangeSetListener() {
+                            @Override
+                            public void onDateRangeSet(SmoothDateRangePickerFragment view,
+                                                       int yearStart, int monthStart,
+                                                       int dayStart, int yearEnd,
+                                                       int monthEnd, int dayEnd) {
+                                monthEnd++;
+                                monthStart++;
+                                String d,m;
+                                if (dayStart <= 9){
+                                    d = '0'+ String.valueOf(dayStart);
+                                }
+                                else
+                                    d = String.valueOf(dayStart);
+                                if (monthStart <= 9){
+                                    m = '0' + String.valueOf(monthStart);
+                                }
+                                else
+                                    m = String.valueOf(monthStart);
+                                date1 = d+"-"+m+"-"+yearStart;
 
+                                if (dayEnd <= 9){
+                                    d = '0'+ String.valueOf(dayEnd);
+                                }
+                                else
+                                    d = String.valueOf(dayEnd);
+                                if (monthEnd <= 9){
+                                    m = '0' + String.valueOf(monthEnd);
+                                }
+                                else
+                                    m = String.valueOf(monthEnd);
+                                date2 = d+"-"+m+"-"+yearEnd;
+                                Log.e("dates",date1 + " " + date2);
+                            }
+                        });
+                smoothDateRangePickerFragment.setThemeDark(true);
+                //setAccentColor(int color)
+
+                smoothDateRangePickerFragment.show(getFragmentManager(), "smoothDateRangePicker");
             }
         });
-        second.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                DialogFragment dateDialog = new DatePicker();
-                dateDialog.show(getFragmentManager(), "second");
-            }
-        });
+
         go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 Intent intent = new Intent();
                 intent.putExtra("url",url);
-                intent.putExtra("first_date",first.getText().toString());
-                intent.putExtra("second_date",second.getText().toString());
+                intent.putExtra("first_date",date1);
+                intent.putExtra("second_date",date2);
                 intent.putExtra("name",tip);
                 setResult(RESULT_OK, intent);
                 finish();
@@ -131,63 +162,7 @@ public class FiltersActivity extends AppCompatActivity {
         });
     }
 
-    @SuppressLint("ValidFragment")
-    class DatePicker extends DialogFragment
-            implements DatePickerDialog.OnDateSetListener {
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-
-            final Calendar c = Calendar.getInstance();
-            int year = c.get(Calendar.YEAR);
-            int month = c.get(Calendar.MONTH);
-            int day = c.get(Calendar.DAY_OF_MONTH);
-
-            Dialog picker = new DatePickerDialog(getActivity(), this,
-                    year, month, day);
 
 
-            return picker;
-        }
-        int id = 0;
 
-        @Override
-        public void show(FragmentManager manager, String tag) {
-            super.show(manager, tag);
-            if (tag.equals("first")){
-                id = 1;
-            }
-            else{
-                id = 2;
-            }
-
-        }
-
-        @Override
-        public void onDateSet(android.widget.DatePicker datePicker, int year, int month, int day) {
-            month++;
-
-            String d,m;
-            if (day <= 9){
-                d = '0'+ String.valueOf(day);
-            }
-            else
-                d = String.valueOf(day);
-            if (month <= 9){
-                m = '0' + String.valueOf(month);
-            }
-            else
-                m = String.valueOf(month);
-            if (id == 1) {
-                first.setText(d + "-" + m + "-" + year);
-                first.setTextSize(20);
-                first.setTextColor(Color.rgb(0,0,0));
-            }
-            else {
-                second.setText(d + "-" + m + "-" + year);
-                second.setTextSize(20);
-                second.setTextColor(Color.rgb(0,0,0));
-            }
-        }
-    }
 }

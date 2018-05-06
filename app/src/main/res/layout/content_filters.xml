@@ -26,50 +26,31 @@
         />
 
 
-    <TextView
-        android:layout_width="match_parent"
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_choose_two_dates"
+            android:text="Выбор диапазона дат"
+            android:textColor="#000"
+            android:textSize="20sp"
+            android:layout_below="@+id/spinner"
+            android:layout_margin="5dp"
+            />
+
+    <ImageButton
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/spinner"
-        android:id="@+id/text_choose_two_dates"
-        android:text="Выбор диапазона дат"
-        android:textColor="#000"
-        android:textSize="20sp"
         android:layout_margin="5dp"
+        android:src="@drawable/ic_date_range_black_24dp"
+        android:id="@+id/date"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/spinner"
         />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@+id/text_choose_two_dates"
-        android:layout_margin="16dp"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/first_date"
-            android:textSize="15sp"
-            android:text="Нажмите, чтобы выбрать дату"
 
-            android:layout_margin="5dp"
-            android:clickable="true"
-            android:layout_weight="1"
-
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/second_date"
-            android:textSize="15sp"
-            android:clickable="true"
-            android:text="Нажмите, чтобы выбрать дату"
-            android:layout_weight="1"
-
-            android:layout_margin="5dp"
-
-            />
-
-    </LinearLayout>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

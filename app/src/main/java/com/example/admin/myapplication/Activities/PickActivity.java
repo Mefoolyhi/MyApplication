@@ -118,34 +118,31 @@ public class PickActivity extends BaseSpiceActivity implements NavigationView.On
         String first_date = data.getStringExtra("first_date");
         String second_date = data.getStringExtra("second_date");
         String name = data.getStringExtra("name");
-        filters.setText(name+", "+date(first_date)+" - "+date(second_date));
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-
-        int diff = 1;
-        try {
-            Date date2 = dateFormat.parse(second_date);
-            Date date1 = dateFormat.parse(first_date);
-             diff += (int) ((date2.getTime() - date1.getTime()) / (24 * 60 * 60 * 1000));
-
-        } catch (ParseException e1) {
-            e1.printStackTrace();
-        }
-
-
+        Log.e("dates",first_date + " "+second_date);
         String s;
-        if (!first_date.equals("Нажмите, чтобы выбрать дату") && !second_date.equals("Нажмите, чтобы выбрать дату")) {
-            url += "&date=" + first_date.substring(6, 10) + "-" + first_date.substring(3, 5) + "-" + first_date.substring(0, 2) + "&period=" + diff;
-        }
-        else if (!first_date.equals("Нажмите, чтобы выбрать дату")){
-            url += "&date=" + first_date.substring(6, 10) + "-" + first_date.substring(3, 5) + "-" + first_date.substring(0, 2);
-        }
-        else if (!second_date.equals("Нажмите, чтобы выбрать дату")){
-            url += "&date=" + second_date.substring(6, 10) + "-" + second_date.substring(3, 5) + "-" + second_date.substring(0, 2);
-        }
-
-            s = url +"&offset="+ count;
+        if (first_date.length()<3){
+            filters.setText(name);
 
 
+        }
+        else {
+            filters.setText(name + ", " + date(first_date) + " - " + date(second_date));
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+
+            int diff = 1;
+            try {
+                Date date2 = dateFormat.parse(second_date);
+                Date date1 = dateFormat.parse(first_date);
+                diff += (int) ((date2.getTime() - date1.getTime()) / (24 * 60 * 60 * 1000));
+                url += "&date=" + first_date.substring(6, 10) + "-" + first_date.substring(3, 5) + "-" + first_date.substring(0, 2) + "&period=" + diff;
+
+            } catch (ParseException e1) {
+                Log.e("DateDif",e1.getMessage());
+            }
+
+        }
+
+        s = url +"&offset="+ count;
         MyHttpRequest txtRequest = new MyHttpRequest(s);
 
 

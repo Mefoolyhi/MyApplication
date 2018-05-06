@@ -86,6 +86,7 @@ public class JParser {
 
     {
        Log.e("Parse",e.getMessage());
+       e.printStackTrace();
 
 
     }

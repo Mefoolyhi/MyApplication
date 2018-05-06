@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -25,29 +26,38 @@ import com.example.admin.myapplication.Holy.MyHttpRequest;
 import com.example.admin.myapplication.R;
 import com.leavjenn.smoothdaterangepicker.date.SmoothDateRangePickerFragment;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class FiltersActivity extends AppCompatActivity {
 
 
     Spinner type;
-    Button back,go;
+    Button go;
 
     String url = "", tip;
     ImageButton date;
     String date1 = "",date2 = "";
+    CheckBox today;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filters);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
+        Toolbar toolbar =  findViewById(R.id.toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         type = findViewById(R.id.spinner);
-        back = findViewById(R.id.back);
         go = findViewById(R.id.ready);
+        today = findViewById(R.id.today);
+        today.setChecked(false);
         date = findViewById(R.id.date);
 
         ArrayAdapter<?> adapter =
@@ -117,7 +127,7 @@ public class FiltersActivity extends AppCompatActivity {
                                 }
                                 else
                                     m = String.valueOf(monthStart);
-                                date1 = d+"-"+m+"-"+yearStart;
+                                date1 = d+"."+m+"."+yearStart;
 
                                 if (dayEnd <= 9){
                                     d = '0'+ String.valueOf(dayEnd);
@@ -129,11 +139,12 @@ public class FiltersActivity extends AppCompatActivity {
                                 }
                                 else
                                     m = String.valueOf(monthEnd);
-                                date2 = d+"-"+m+"-"+yearEnd;
-                                Log.e("dates",date1 + " " + date2);
+                                date2 = d+"."+m+"."+yearEnd;
                             }
                         });
                 smoothDateRangePickerFragment.setThemeDark(true);
+
+                today.setChecked(false);
                 //setAccentColor(int color)
 
                 smoothDateRangePickerFragment.show(getFragmentManager(), "smoothDateRangePicker");
@@ -147,6 +158,10 @@ public class FiltersActivity extends AppCompatActivity {
 
                 Intent intent = new Intent();
                 intent.putExtra("url",url);
+                if (today.isChecked()){
+                    date1 = date();
+                    date2 = date();
+                }
                 intent.putExtra("first_date",date1);
                 intent.putExtra("second_date",date2);
                 intent.putExtra("name",tip);
@@ -154,13 +169,13 @@ public class FiltersActivity extends AppCompatActivity {
                 finish();
             }
         });
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
     }
+
+    String date(){
+        DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
+        return df.format(Calendar.getInstance().getTime());
+    }
+
 
 
 

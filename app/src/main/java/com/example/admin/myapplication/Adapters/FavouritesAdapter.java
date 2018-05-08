@@ -29,12 +29,7 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Vi
 
     private ArrayList<Event> data;
 
-    OnBottomReachedListener onBottomReachedListener;
 
-    public void setOnBottomReachedListener(OnBottomReachedListener onBottomReachedListener){
-
-        this.onBottomReachedListener = onBottomReachedListener;
-    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -54,11 +49,6 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Vi
         holder.cvListener.setRecord(e,position);
         holder.butlis.setE(e,position);
 
-        if (position == data.size() - 3){
-
-            onBottomReachedListener.onBottomReached(position);
-
-        }
 
 
 
@@ -119,6 +109,7 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Vi
                         .setAction("Action", null).show();
 
                 notifyItemRemoved(pos);
+                data = (new DataHelper(context)).getFavourites();
 
 
 

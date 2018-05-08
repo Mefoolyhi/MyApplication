@@ -47,9 +47,14 @@ public class JParser {
             String toBuy = "https://afisha.yandex.ru" +  friend.getJSONObject("event").getString("url") + "?schedule-filter-tickets=true";
             String imageurl = friend.getJSONObject("event").getJSONObject("image").getJSONObject("headingPrimaryS").getString("url");
             JSONArray prices = friend.getJSONObject("event").getJSONArray("tickets");
-            JSONObject price = prices.getJSONObject(0).getJSONObject("price");
-            String pr = price.getString("min").substring(0,price.getString("min").length() - 2) + "-" + price.getString("max").substring(0,price.getString("max").length() - 2);
-
+            String pr;
+            if (prices.length() == 0){
+                pr = "Билетов нет";
+            }
+            else {
+                JSONObject price = prices.getJSONObject(0).getJSONObject("price");
+                pr = price.getString("min").substring(0, price.getString("min").length() - 2) + "-" + price.getString("max").substring(0, price.getString("max").length() - 2) + " рублей";
+            }
 
                 String OP = friend.getJSONObject("scheduleInfo").getString("onlyPlace");
                 if (!OP.equals("null")) {

@@ -111,7 +111,7 @@ public class EventActivity extends AppCompatActivity {
         });
         name.setText(getIntent().getStringExtra("name"));
         dates_place.setText(getIntent().getStringExtra("dates"));
-        price.setText(getIntent().getStringExtra("price") + " рублей");
+        price.setText(getIntent().getStringExtra("price"));
         place.setText(getIntent().getStringExtra("place"));
         address.setText(getIntent().getStringExtra("address"));
         UserRating.setText(String.valueOf(getIntent().getDoubleExtra("UserRating", 0)));

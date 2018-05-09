@@ -179,23 +179,26 @@ public class NewsActivity extends BaseSpiceActivity
 
         return true;
     }
+    Boolean used = false;
 
     @Override
     protected void onStart() {
         super.onStart();
-        count = 0;
-        news.clear();
-        url = "http://www.justmedia.ru/news/default/getAjaxPreviousItems/?previousItemsPosition="+ count + "&previousItemsStep=15&rubric=11&tag=0&delimiterDate=" + date();
+        if (!used) {
+            count = 0;
+            news.clear();
+            url = "http://www.justmedia.ru/news/default/getAjaxPreviousItems/?previousItemsPosition=" + count + "&previousItemsStep=15&rubric=11&tag=0&delimiterDate=" + date();
 
 
-        MyHttpRequest txtRequest = new MyHttpRequest(url);
+            MyHttpRequest txtRequest = new MyHttpRequest(url);
 
 
+            pb.setVisibility(View.VISIBLE);
 
-        pb.setVisibility(View.VISIBLE);
-
-        getSpiceManager().execute(txtRequest, "txt", DurationInMillis.ONE_MINUTE,
-                new TextRequestListener());
+            getSpiceManager().execute(txtRequest, "txt", DurationInMillis.ONE_MINUTE,
+                    new TextRequestListener());
+            used = true;
+        }
 
     }
 

@@ -5,17 +5,26 @@ package com.example.admin.myapplication.Utils;
  */
 
 public class PostValue {
-    private String id,time,heading,link;
+    private String id,time,heading,link, sT;
 
 
-    public PostValue(String id,String time, String heading, String link){
+    public PostValue(String id,String time, String heading, String link, String sT){
         this.time = time;
         this.heading = heading;
         this.link = "http://www.justmedia.ru" + link;
         this.id = id;
+        this.sT = sT;
 
 
 }
+
+    public String getsT() {
+        return sT;
+    }
+
+    public void setsT(String sT) {
+        this.sT = sT;
+    }
 
     public String getId() {
         return id;

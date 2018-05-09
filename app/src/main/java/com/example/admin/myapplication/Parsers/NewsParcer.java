@@ -36,10 +36,11 @@ public class NewsParcer {
             for (int i = 0; i < friends.length(); i++) {
                 JSONObject friend = friends.getJSONObject(i);
                 String title = friend.getString("title");
-                String id = friend.getString("id");
+                String id = friend.getString("url");
+                String sT = friend.getString("shortText");
                 String imageurl = friend.getString("image");
                 String date = friend.getString("datetime");
-                PostValue pv = new PostValue(id,date,title,imageurl);
+                PostValue pv = new PostValue(id,date,title,imageurl, sT);
                 data.add(pv);
             }
 

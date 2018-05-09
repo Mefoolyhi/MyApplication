@@ -1,6 +1,7 @@
 package com.example.admin.myapplication.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.admin.myapplication.Activities.NewActivity;
+import com.example.admin.myapplication.Activities.NewsActivity;
 import com.example.admin.myapplication.Holy.OnBottomReachedListener;
 import com.example.admin.myapplication.R;
 import com.example.admin.myapplication.Utils.PostValue;
@@ -97,6 +100,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
         @Override
         public void onClick(View v) {
+            Intent intent = new Intent(context, NewActivity.class);
+            intent.putExtra("name",pv.getId());
+            intent.putExtra("imageLink",pv.getLink());
+            intent.putExtra("date",pv.getTime());
+            intent.putExtra("title",pv.getHeading());
+            intent.putExtra("shortText",pv.getsT());
+            context.startActivity(intent);
 
         }
 

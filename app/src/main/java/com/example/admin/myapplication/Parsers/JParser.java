@@ -53,7 +53,7 @@ public class JParser {
             }
             else {
                 JSONObject price = prices.getJSONObject(0).getJSONObject("price");
-                pr = price.getString("min").substring(0, price.getString("min").length() - 2) + "-" + price.getString("max").substring(0, price.getString("max").length() - 2) + " рублей";
+                pr = price.getString("min").substring(0, price.getString("min").length() - 2) + " - " + price.getString("max").substring(0, price.getString("max").length() - 2) + " рублей";
             }
 
                 String OP = friend.getJSONObject("scheduleInfo").getString("onlyPlace");

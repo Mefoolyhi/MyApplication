@@ -30,7 +30,7 @@ public class NewActivity extends BaseSpiceActivity {
     TextView main, title,date;
     ProgressBar sp;
 
-    String url = "http://192.168.0.197:8124/new/";
+    String url = "http://5.189.85.227:8124/new/";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

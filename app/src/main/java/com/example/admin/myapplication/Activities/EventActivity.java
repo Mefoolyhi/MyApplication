@@ -114,9 +114,13 @@ public class EventActivity extends AppCompatActivity {
         buy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getIntent().getStringExtra("buy")));
-                Log.e("Link",getIntent().getStringExtra("buy"));
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getIntent().getStringExtra("buy")));
+//                Log.e("Link",getIntent().getStringExtra("buy"));
+//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivity(intent);
+
+                Intent intent = new Intent(EventActivity.this,MoreAndBuyActivity.class);
+                intent.putExtra("link",getIntent().getStringExtra("buy"));
                 startActivity(intent);
             }
         });

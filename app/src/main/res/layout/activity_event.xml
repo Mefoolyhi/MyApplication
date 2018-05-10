@@ -174,12 +174,12 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
 
         android:text="Как проехать"
         android:layout_margin="16dp"
         android:layout_alignParentBottom="true"
         android:id="@+id/map"
+        android:layout_centerHorizontal="true"
         />
 
 
@@ -187,10 +187,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/buy"
-        android:text="Купить билет"
-        android:layout_alignParentRight="true"
+
+        android:layout_centerHorizontal="true"
+        android:text="Узнать больше и купить билет"
+        android:layout_above="@+id/map"
         android:layout_margin="16dp"
-        android:layout_alignParentBottom="true"
 
         />
 </RelativeLayout>

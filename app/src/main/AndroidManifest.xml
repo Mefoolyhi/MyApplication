@@ -59,13 +59,15 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activities.MapsActivity"
-
-            android:screenOrientation="portrait"
             android:label="@string/title_activity_maps"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activities.NewActivity"
-
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activities.MoreAndBuyActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>

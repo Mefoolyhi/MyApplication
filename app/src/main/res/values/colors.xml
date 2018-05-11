@@ -4,9 +4,9 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="green">#008000</color>
-    <color name="red">#B22222
-
-    </color>
-    <color name="grey">#BEBEBE</color>
+    <color name="red">#B22222</color>
+    <color name="grey">#3CAA3C</color>
+    <!--<color name="grey1">#77DD77</color>-->
+    <color name="grey1">#BEBEBE</color>
     <color name="yellow">#FFD700</color>
 </resources>

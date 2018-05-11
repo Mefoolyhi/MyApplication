@@ -7,7 +7,7 @@
     android:focusable="true"
     android:clickable="true"
     android:padding="10dp"
-    card_view:cardBackgroundColor="@color/grey"
+    card_view:cardBackgroundColor="@color/grey1"
     card_view:cardCornerRadius="10dp"
     card_view:cardElevation="5dp"
     card_view:cardUseCompatPadding="true"

@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">My Application</string>
-    <string name="title_activity_main2">Main2Activity</string>
+    <string name="app_name">НаЗаборе: театры Екатеринбурга</string>
+    <string name="title_activity_main2">НаЗаборе: театры Екатеринбурга</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_title">НаЗаборе: театры Екатеринбурга</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
 
@@ -15,9 +15,8 @@
         <item>Шоу</item>
         <item>Детское</item>
     </string-array>
-    <string name="title_activity_filters">FiltersActivity</string>
-    <string name="title_activity_favourites">FavouritesActivity</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_filters">НаЗаборе: театры Екатеринбурга</string>
+    <string name="title_activity_favourites">НаЗаборе: театры Екатеринбурга</string>
+    <string name="title_activity_maps">НаЗаборе: театры Екатеринбурга</string>
 
 </resources>

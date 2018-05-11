@@ -26,6 +26,9 @@
             android:layout_height="wrap_content"
             android:text="Спектакли"
             android:id="@+id/filters_text"
+            android:textSize="20sp"
+            android:layout_toLeftOf="@+id/filters"
+            android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_margin="16dp"
             />

@@ -6,14 +6,14 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_news"
-            android:title="News" />
+            android:title="Новости" />
         <item
         android:id="@+id/nav_choose"
-        android:title="Choose the event" />
+        android:title="Подобрать спектакль" />
 
         <item
             android:id="@+id/nav_fav"
-            android:title="Favourites" />
+            android:title="Избранное" />
     </group>
 
 

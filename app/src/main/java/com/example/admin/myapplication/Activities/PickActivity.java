@@ -113,8 +113,10 @@ public class PickActivity extends BaseSpiceActivity implements NavigationView.On
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (data == null) {return;}
+        pb.setVisibility(View.VISIBLE);
         url = data.getStringExtra("url");
         count = 0;
+        error.setVisibility(View.INVISIBLE);
         String first_date = data.getStringExtra("first_date");
         String second_date = data.getStringExtra("second_date");
         String name = data.getStringExtra("name");
@@ -147,6 +149,9 @@ public class PickActivity extends BaseSpiceActivity implements NavigationView.On
 
 
         e.clear();
+
+        rv.scrollToPosition(0);
+        bundle = new Bundle();
         Log.e("Ref",s);
         getSpiceManager().execute(txtRequest, s, DurationInMillis.ONE_MINUTE,
                 new TextRequestListener());
@@ -285,7 +290,7 @@ int count = 0;
 
         @Override
         public void onRequestFailure(SpiceException spiceException) {
-            error.setText(url+"&offset="+count);
+            error.setText("Произошла ошибка, попробуйте позже");
             error.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

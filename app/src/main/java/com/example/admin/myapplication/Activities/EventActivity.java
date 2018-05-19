@@ -17,8 +17,10 @@ import com.example.admin.myapplication.Holy.DataHelper;
 import com.example.admin.myapplication.R;
 import com.facebook.drawee.view.SimpleDraweeView;
 
+import me.majiajie.swipeback.SwipeBackActivity;
 
-public class EventActivity extends AppCompatActivity {
+
+public class EventActivity extends SwipeBackActivity {
 
 
 
@@ -34,7 +36,7 @@ public class EventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
-       map = findViewById(R.id.map);
+       map = (Button) findViewById(R.id.map);
 
        map.setOnClickListener(new View.OnClickListener() {
            @Override
@@ -48,17 +50,17 @@ public class EventActivity extends AppCompatActivity {
        });
 
 
-        type_rating = findViewById(R.id.type_rating);
-        name = findViewById(R.id.name);
-        dates_place = findViewById(R.id.dates_place);
-        price = findViewById(R.id.price);
-        place = findViewById(R.id.place);
-        address = findViewById(R.id.address);
-        image = findViewById(R.id.image);
-        imagePlace = findViewById(R.id.imagePlace);
-        buy = findViewById(R.id.buy);
-        UserRating = findViewById(R.id.UserRating);
-        Toolbar toolbar =  findViewById(R.id.toolbar);
+        type_rating = (TextView) findViewById(R.id.type_rating);
+        name = (TextView) findViewById(R.id.name);
+        dates_place = (TextView) findViewById(R.id.dates_place);
+        price = (TextView) findViewById(R.id.price);
+        place = (TextView) findViewById(R.id.place);
+        address = (TextView) findViewById(R.id.address);
+        image = (SimpleDraweeView) findViewById(R.id.image);
+        imagePlace = (SimpleDraweeView) findViewById(R.id.imagePlace);
+        buy = (Button) findViewById(R.id.buy);
+        UserRating = (Button) findViewById(R.id.UserRating);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,7 +68,7 @@ public class EventActivity extends AppCompatActivity {
             }
         });
 
-        add = findViewById(R.id.add_to_fav);
+        add = (ImageButton) findViewById(R.id.add_to_fav);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

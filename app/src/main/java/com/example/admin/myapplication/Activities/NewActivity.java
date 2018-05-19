@@ -24,7 +24,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.web.client.RestTemplate;
 
-public class NewActivity extends BaseSpiceActivity {
+import me.majiajie.swipeback.SwipeBackActivity;
+
+public class NewActivity extends SwipeBackActivity {
 
     SimpleDraweeView image;
     TextView main, title,date;
@@ -35,7 +37,7 @@ public class NewActivity extends BaseSpiceActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new);
-        Toolbar toolbar =  findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,11 +45,11 @@ public class NewActivity extends BaseSpiceActivity {
             }
         });
 
-        main = findViewById(R.id.main);
-        title = findViewById(R.id.name);
-        image = findViewById(R.id.image);
-        date = findViewById(R.id.date);
-        sp = findViewById(R.id.spinner);
+        main = (TextView) findViewById(R.id.main);
+        title = (TextView) findViewById(R.id.name);
+        image = (SimpleDraweeView) findViewById(R.id.image);
+        date = (TextView) findViewById(R.id.date);
+        sp = (ProgressBar) findViewById(R.id.spinner);
 
         sp.setVisibility(View.VISIBLE);
 

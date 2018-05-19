@@ -30,7 +30,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-public class FiltersActivity extends AppCompatActivity {
+import me.majiajie.swipeback.SwipeBackActivity;
+
+public class FiltersActivity extends SwipeBackActivity {
 
 
     Spinner type;
@@ -47,18 +49,18 @@ public class FiltersActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filters);
 
-        Toolbar toolbar =  findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        type = findViewById(R.id.spinner);
-        go = findViewById(R.id.ready);
-        today = findViewById(R.id.today);
+        type = (Spinner) findViewById(R.id.spinner);
+        go = (Button) findViewById(R.id.ready);
+        today = (CheckBox) findViewById(R.id.today);
         today.setChecked(false);
-        date = findViewById(R.id.date);
+        date = (ImageButton) findViewById(R.id.date);
 
         ArrayAdapter<?> adapter =
                 ArrayAdapter.createFromResource(FiltersActivity.this, R.array.types, android.R.layout.simple_spinner_item);

@@ -37,6 +37,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import me.majiajie.swipeback.utils.ActivityStack;
+
 public class NewsActivity extends BaseSpiceActivity
         implements NavigationView.OnNavigationItemSelectedListener, SwipeRefreshLayout.OnRefreshListener {
 
@@ -66,6 +68,7 @@ public class NewsActivity extends BaseSpiceActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         Fresco.initialize(this);
         setContentView(R.layout.activity_main2);

@@ -9,7 +9,9 @@ import android.webkit.WebViewClient;
 
 import com.example.admin.myapplication.R;
 
-public class MoreAndBuyActivity extends AppCompatActivity {
+import me.majiajie.swipeback.SwipeBackActivity;
+
+public class MoreAndBuyActivity extends SwipeBackActivity {
 
 
 
@@ -22,7 +24,7 @@ public class MoreAndBuyActivity extends AppCompatActivity {
 
 
 
-        Toolbar toolbar =  findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -30,7 +32,7 @@ public class MoreAndBuyActivity extends AppCompatActivity {
             }
         });
 
-        mWebView = findViewById(R.id.web);
+        mWebView = (WebView) findViewById(R.id.web);
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.loadUrl(getIntent().getStringExtra("link"));
 

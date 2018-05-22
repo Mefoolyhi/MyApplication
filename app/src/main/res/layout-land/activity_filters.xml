@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="#59D8FC"
+    tools:context=".Activities.FiltersActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/at"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:navigationIcon="?attr/homeAsUpIndicator"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/at"
+
+
+        >
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+
+            android:id="@+id/text_choose_type"
+            android:layout_height="70dp"
+            android:background="@drawable/zabor_4">
+        <TextView
+
+            android:layout_margin="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="          Выбор категории"
+            android:textColor="#000"
+            android:textSize="20sp"/>
+        </RelativeLayout>
+        <RelativeLayout
+
+            android:layout_height="70dp"
+            android:background="@drawable/zabor_4"
+            android:layout_below="@id/text_choose_type"
+
+            android:id="@+id/spin"
+            android:layout_width="match_parent">
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:entries="@array/types"
+            />
+
+        </RelativeLayout>
+
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+
+    android:id="@+id/ll"
+
+    android:background="@drawable/zabor_4"
+    android:layout_below="@+id/spin"
+    android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:id="@+id/text_choose_two_dates"
+            android:text="Выбор диапазона дат"
+            android:textColor="#000"
+            android:textSize="20sp"
+            android:layout_margin="15dp"
+            android:layout_height="wrap_content"
+            />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_date_range_black_24dp"
+            android:id="@+id/date"
+android:layout_margin="15dp"
+            android:background="@null"
+            android:layout_toRightOf="@+id/text_choose_two_dates"
+            />
+
+</RelativeLayout>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ready"
+            android:textSize="20sp"
+
+            android:layout_below="@+id/gh"
+            android:layout_alignParentRight="true"
+            android:layout_margin="15dp"
+            android:text="Применить"
+
+            android:background="@null"
+
+            />
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+
+
+    android:background="@drawable/zabor_4"
+
+    android:id="@+id/gh"
+    android:layout_below="@+id/ll">
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/today"
+
+            android:layout_margin="15dp"
+            android:layout_toRightOf="@+id/today_txt"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Сегодня"
+            android:textColor="#000"
+
+            android:layout_margin="15dp"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:id="@+id/today_txt"
+            />
+</RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

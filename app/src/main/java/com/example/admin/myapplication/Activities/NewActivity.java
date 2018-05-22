@@ -1,32 +1,23 @@
 package com.example.admin.myapplication.Activities;
 
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.admin.myapplication.Adapters.NewsAdapter;
-import com.example.admin.myapplication.Holy.MyHttpRequest;
-import com.example.admin.myapplication.Holy.OnBottomReachedListener;
 import com.example.admin.myapplication.R;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.octo.android.robospice.persistence.DurationInMillis;
-import com.octo.android.robospice.persistence.exception.SpiceException;
-import com.octo.android.robospice.request.listener.RequestListener;
+import com.r0adkll.slidr.Slidr;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.web.client.RestTemplate;
 
-import me.majiajie.swipeback.SwipeBackActivity;
-
-public class NewActivity extends SwipeBackActivity {
+public class NewActivity extends AppCompatActivity {
 
     SimpleDraweeView image;
     TextView main, title,date;
@@ -37,6 +28,8 @@ public class NewActivity extends SwipeBackActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new);
+
+        Slidr.attach(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,6 +37,12 @@ public class NewActivity extends SwipeBackActivity {
                 finish();
             }
         });
+        toolbar.setTitle("");
+        TextView name = (TextView) toolbar.findViewById(R.id.name_ab);
+        name.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+        name.setSingleLine(true);
+        name.setMarqueeRepeatLimit(-1); // '-1' for infinite
+        name.setSelected(true);
 
         main = (TextView) findViewById(R.id.main);
         title = (TextView) findViewById(R.id.name);

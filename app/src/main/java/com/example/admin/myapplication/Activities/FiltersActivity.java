@@ -1,38 +1,28 @@
 package com.example.admin.myapplication.Activities;
 
-import android.annotation.SuppressLint;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
-import android.app.FragmentManager;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.admin.myapplication.Holy.MyHttpRequest;
 import com.example.admin.myapplication.R;
 import com.leavjenn.smoothdaterangepicker.date.SmoothDateRangePickerFragment;
+import com.r0adkll.slidr.Slidr;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import me.majiajie.swipeback.SwipeBackActivity;
-
-public class FiltersActivity extends SwipeBackActivity {
+public class FiltersActivity extends AppCompatActivity {
 
 
     Spinner type;
@@ -49,6 +39,8 @@ public class FiltersActivity extends SwipeBackActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filters);
 
+
+        Slidr.attach(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,6 +48,12 @@ public class FiltersActivity extends SwipeBackActivity {
                 finish();
             }
         });
+        toolbar.setTitle("");
+        TextView name = (TextView) toolbar.findViewById(R.id.name);
+        name.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+        name.setSingleLine(true);
+        name.setMarqueeRepeatLimit(-1); // '-1' for infinite
+        name.setSelected(true);
         type = (Spinner) findViewById(R.id.spinner);
         go = (Button) findViewById(R.id.ready);
         today = (CheckBox) findViewById(R.id.today);

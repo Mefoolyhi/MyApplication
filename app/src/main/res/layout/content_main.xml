@@ -7,7 +7,10 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".Activities.PickActivity"
-    tools:showIn="@layout/app_bar_main">
+    tools:showIn="@layout/app_bar_main"
+
+    android:background="#59D8FC"
+    >
     <RelativeLayout
         android:layout_height="match_parent"
         android:layout_width="match_parent"
@@ -16,9 +19,9 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:orientation="horizontal"
-        android:layout_margin="16dp"
+        android:background="@drawable/zabor_2"
         android:id="@+id/ll"
         >
         <TextView
@@ -26,11 +29,11 @@
             android:layout_height="wrap_content"
             android:text="Спектакли"
             android:id="@+id/filters_text"
-            android:textSize="20sp"
-            android:layout_toLeftOf="@+id/filters"
+            android:textSize="17sp"
+            android:textColor="#000"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
-            android:layout_margin="16dp"
+            android:layout_margin="15dp"
             />
 
         <ImageButton
@@ -38,8 +41,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_margin="16dp"
+            android:layout_centerVertical="true"
             android:src="@drawable/ic_filter"
             android:id="@+id/filters"
+            android:background="@null"
             />
 
 

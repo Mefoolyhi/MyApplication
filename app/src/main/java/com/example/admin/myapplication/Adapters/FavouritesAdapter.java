@@ -43,7 +43,7 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Vi
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final Event e = data.get(position);
-        holder.more.setText(e.getPlace() + " " + e.getDates() + " " + e.getPrice());
+        holder.more.setText(e.getPlace() + " \n" + e.getDates() + " \n" + e.getPrice());
         holder.heading.setText(e.getTitle() + " " + e.getRating());
         holder.picture.setImageURI(e.getImagelink());
         holder.cvListener.setRecord(e,position);

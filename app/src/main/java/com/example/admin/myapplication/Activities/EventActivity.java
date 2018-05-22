@@ -2,32 +2,31 @@ package com.example.admin.myapplication.Activities;
 
 import android.content.ContentValues;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.admin.myapplication.Holy.DataHelper;
 import com.example.admin.myapplication.R;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.r0adkll.slidr.Slidr;
 
-import me.majiajie.swipeback.SwipeBackActivity;
 
-
-public class EventActivity extends SwipeBackActivity {
+public class EventActivity extends AppCompatActivity{
 
 
 
     ImageButton add;
     TextView type_rating, name, dates_place, price, place, address;
     SimpleDraweeView image, imagePlace;
-    Button buy, UserRating, map;
+    Button UserRating;
+    RelativeLayout map, buy;
     double longitude, latitude;
 
 
@@ -36,7 +35,8 @@ public class EventActivity extends SwipeBackActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
-       map = (Button) findViewById(R.id.map);
+        Slidr.attach(this);
+       map = (RelativeLayout) findViewById(R.id.map);
 
        map.setOnClickListener(new View.OnClickListener() {
            @Override
@@ -58,7 +58,7 @@ public class EventActivity extends SwipeBackActivity {
         address = (TextView) findViewById(R.id.address);
         image = (SimpleDraweeView) findViewById(R.id.image);
         imagePlace = (SimpleDraweeView) findViewById(R.id.imagePlace);
-        buy = (Button) findViewById(R.id.buy);
+        buy = (RelativeLayout) findViewById(R.id.buy);
         UserRating = (Button) findViewById(R.id.UserRating);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

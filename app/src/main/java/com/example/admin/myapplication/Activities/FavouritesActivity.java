@@ -8,6 +8,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -41,7 +42,15 @@ public class FavouritesActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourites);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("");
+        TextView name = (TextView) toolbar.findViewById(R.id.name);
+        name.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+        name.setSingleLine(true);
+        name.setMarqueeRepeatLimit(-1); // '-1' for infinite
+        name.setSelected(true);
         setSupportActionBar(toolbar);
+
+
 
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

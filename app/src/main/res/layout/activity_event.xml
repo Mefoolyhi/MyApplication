@@ -1,76 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
 
     xmlns:tools="http://schemas.android.com/tools"
 
+
     android:layout_width="match_parent"
+    android:background="#59D8FC"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     tools:context=".Activities.EventActivity">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/at"
+
+        android:background="@null"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
+
+            android:background="@null"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
             app:navigationIcon="?attr/homeAsUpIndicator"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            app:popupTheme="@style/AppTheme.PopupOverlay" >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/add_to_fav"
+            android:background="@null"
+            android:src="@drawable/ic_favorite_border_black_24dp"
+            android:layout_alignParentRight="true"
+            android:layout_margin="16dp"
+            />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="17sp"
+                    android:textAlignment="center"
+                    android:shadowColor="@color/TransparentGrey"
+                    android:shadowDx="3"
+                    android:shadowDy="-3"
+                    android:shadowRadius="1.5"
+                    android:textColor="#FFF"
+                    android:layout_margin="5dp"
+                    android:layout_centerHorizontal="true"
+                    android:text="Theatre 6+"
 
+                    android:layout_centerVertical="true"
+                    android:id="@+id/type_rating"
+                    />
+
+
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:id="@+id/at"
+    >
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+
+        android:layout_height="350dp"
 
 
+        android:layout_alignParentTop="true"
+        fresco:actualImageScaleType="centerCrop" />
 
-    <ImageButton
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
         android:layout_height="wrap_content"
-        android:id="@+id/add_to_fav"
-        android:src="@drawable/ic_favorite_black_24dp"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/at"
-        />
+        android:layout_centerInParent="true">
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="17sp"
-        android:textAlignment="center"
-        android:textColor="#000"
-        android:layout_below="@+id/at"
-        android:layout_margin="5dp"
-        android:text="Theatre 6+"
-        android:id="@+id/type_rating"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="25sp"
+        android:textSize="35sp"
         android:text="Лебединое озеро"
         android:textAlignment="center"
-        android:textColor="#000"
-
+        android:textColor="#FFF"
         android:layout_margin="5dp"
         android:textStyle="bold"
-        android:layout_toRightOf="@+id/image"
+
+
+        android:shadowColor="@color/TransparentGrey"
+        android:shadowDx="3"
+        android:shadowDy="-3"
+        android:shadowRadius="1.5"
         android:id="@+id/name"
-        android:layout_below="@+id/type_rating"
+
 
         />
+
+    <TextView
+        android:id="@+id/dates_place"
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+
+
+        android:layout_marginTop="-5dp"
+        android:shadowColor="@color/TransparentGrey"
+        android:shadowDx="3"
+        android:shadowDy="-3"
+
+        android:shadowRadius="1.5"
+        android:text="may, june"
+        android:textAlignment="center"
+        android:textColor="#FFF"
+
+
+        android:textSize="23sp"
+        android:textStyle="bold" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:textAlignment="center"
+        android:layout_margin="5dp"
+        android:id="@+id/price"
+        android:text="2000 - 8000"
+        android:textColor="#FFF"
+        android:textSize="17sp"
+
+
+
+        android:shadowColor="@color/TransparentGrey"
+        android:shadowDx="3"
+        android:shadowDy="-3"
+        android:shadowRadius="1.5"
+
+
+        />
+    </LinearLayout>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-        android:layout_margin="5dp"
-        android:id="@+id/dates_place"
-        android:text="may, june"
+        android:layout_margin="10dp"
+        android:id="@+id/re"
+        android:text="Рейтинг"
         android:textAlignment="center"
-        android:textColor="#000"
+        android:textColor="#FFF"
         android:textSize="17sp"
-        android:layout_toRightOf="@+id/image"
-        android:layout_below="@+id/name"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+
+
+        android:shadowColor="@color/TransparentGrey"
+        android:shadowDx="3"
+        android:shadowDy="-3"
+        android:shadowRadius="1.5"
+
+
 
 
 
@@ -81,33 +178,31 @@
         android:clickable="false"
         android:id="@+id/UserRating"
 
-        android:layout_margin="5dp"
         android:text="9.2"
-        android:background="@color/green"
-        android:layout_toRightOf="@+id/re"
-        android:layout_below="@id/dates_place"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:layout_margin="5dp"
-        android:id="@+id/price"
-        android:text="2000 - 8000"
         android:textAlignment="center"
-        android:textColor="#000"
+        android:textColor="#FFF"
+        android:layout_margin="10dp"
         android:textSize="17sp"
-        android:layout_toRightOf="@+id/image"
-        android:layout_below="@+id/UserRating"
 
 
+        android:layout_alignParentBottom="true"
 
-        />
+        android:shadowColor="@color/TransparentGrey"
+        android:shadowDx="3"
+        android:shadowDy="-3"
+        android:shadowRadius="1.5"
+        android:layout_toRightOf="@+id/re"
+        android:background="@color/green"
+        android:layout_toEndOf="@+id/re" />
+
+
+</RelativeLayout>
+
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_margin="15dp"
         android:id="@+id/place"
         android:text="Театр оперы и балета"
         android:textAlignment="center"
@@ -115,41 +210,20 @@
         android:textSize="25sp"
         android:textStyle="bold"
         android:layout_toRightOf="@+id/imagePlace"
-        android:layout_below="@+id/price"
+        android:layout_below="@+id/at"
 
         />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:id="@+id/re"
-        android:text="Рейтинг"
-        android:textAlignment="center"
-        android:textColor="#000"
-        android:textSize="17sp"
-        android:layout_below="@+id/dates_place"
-        android:layout_toRightOf="@+id/image"
 
 
 
 
 
 
-        />
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:id="@+id/image"
-
-        android:layout_margin="5dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/type_rating"
-        />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_margin="15dp"
         android:id="@+id/address"
         android:text="лаблабла, 45"
         android:textAlignment="center"
@@ -161,37 +235,64 @@
 
 
     <com.facebook.drawee.view.SimpleDraweeView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:id="@+id/imagePlace"
 
-        android:layout_margin="5dp"
+        android:layout_margin="15dp"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/image"
+        android:layout_below="@+id/at"
         />
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
 
-    <Button
+        android:id="@+id/map"
+        android:background="@drawable/zabor_4"
+        android:layout_below="@+id/buy"
+        >
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
         android:text="Как проехать"
-        android:layout_margin="16dp"
-        android:layout_alignParentBottom="true"
-        android:id="@+id/map"
-        android:layout_centerHorizontal="true"
+
+      android:layout_margin="15dp"
+
+        android:textSize="18sp"
+
+
+
+        android:textColor="#000"
         />
 
+    </RelativeLayout>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <RelativeLayout
+
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_below="@+id/address"
+
         android:id="@+id/buy"
+        android:background="@drawable/zabor_4"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
 
-        android:layout_centerHorizontal="true"
+
+            android:textSize="18sp"
+
+
+            android:textColor="#000"
         android:text="Узнать больше и купить билет"
-        android:layout_above="@+id/map"
-        android:layout_margin="16dp"
 
-        />
+ />
+    </RelativeLayout>
 </RelativeLayout>
+</ScrollView>

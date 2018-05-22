@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -61,6 +62,12 @@ public class PickActivity extends BaseSpiceActivity implements NavigationView.On
 
 
         Toolbar toolbar =  findViewById(R.id.toolbar);
+        toolbar.setTitle("");
+        TextView name = (TextView) toolbar.findViewById(R.id.name);
+        name.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+        name.setSingleLine(true);
+        name.setMarqueeRepeatLimit(-1); // '-1' for infinite
+        name.setSelected(true);
         setSupportActionBar(toolbar);
 
         rv = findViewById(R.id.rv_news);

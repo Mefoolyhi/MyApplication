@@ -2,12 +2,13 @@ package com.example.admin.myapplication.Activities;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.admin.myapplication.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -16,10 +17,9 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.r0adkll.slidr.Slidr;
 
-import me.majiajie.swipeback.SwipeBackActivity;
-
-public class MapsActivity extends SwipeBackActivity implements OnMapReadyCallback {
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     double longitude, latitude;
@@ -28,7 +28,15 @@ public class MapsActivity extends SwipeBackActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        Slidr.attach(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("");
+        TextView name = (TextView) toolbar.findViewById(R.id.name);
+        name.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+        name.setSingleLine(true);
+        name.setMarqueeRepeatLimit(-1); // '-1' for infinite
+        name.setSelected(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

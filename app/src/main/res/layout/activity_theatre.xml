@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout
+    android:id="@+id/swipe_refresh"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".Activities.NewsActivity"
+
+    android:background="#59D8FC"
+    tools:showIn="@layout/app_bar_main2">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="#59D8FC">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+
+        android:id="@+id/at"
+        android:background="@null"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+
+            android:background="@null"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="?attr/homeAsUpIndicator"
+            app:popupTheme="@style/AppTheme.PopupOverlay" >
+
+
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:id="@+id/rl"
+        android:layout_below="@+id/at"
+        >
+
+
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true">
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:id="@+id/image"
+                    fresco:actualImageScaleType="centerCrop"
+
+
+
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="35sp"
+                    android:text="Лебединое озеро"
+                    android:textAlignment="center"
+                    android:textColor="#FFF"
+                    android:layout_margin="5dp"
+                    android:textStyle="bold"
+
+
+                    android:shadowColor="@color/TransparentGrey"
+                    android:shadowDx="3"
+                    android:shadowDy="-3"
+                    android:shadowRadius="1.5"
+                    android:id="@+id/name"
+
+
+                    />
+
+                <TextView
+                    android:id="@+id/place"
+                    android:layout_width="match_parent"
+
+                    android:layout_height="wrap_content"
+
+
+                    android:layout_marginTop="-5dp"
+                    android:shadowColor="@color/TransparentGrey"
+                    android:shadowDx="3"
+                    android:shadowDy="-3"
+
+                    android:shadowRadius="1.5"
+                    android:text="may, june"
+                    android:textAlignment="center"
+                    android:textColor="#FFF"
+
+
+                    android:textSize="23sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:textAlignment="center"
+                    android:id="@+id/link"
+                    android:text="2000 - 8000"
+                    android:textColor="#FFF"
+                    android:textSize="17sp"
+
+
+
+                    android:shadowColor="@color/TransparentGrey"
+                    android:shadowDx="3"
+                    android:shadowDy="-3"
+                    android:shadowRadius="1.5"
+
+
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:textAlignment="center"
+                    android:id="@+id/number"
+                    android:text="2000 - 8000"
+                    android:textColor="#FFF"
+                    android:textSize="17sp"
+
+
+
+                    android:shadowColor="@color/TransparentGrey"
+                    android:shadowDx="3"
+                    android:shadowDy="-3"
+                    android:shadowRadius="1.5"
+
+
+                    />
+        </LinearLayout>
+    </RelativeLayout>
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        android:visibility="invisible"
+        android:layout_centerInParent="true"
+
+        android:layout_below="@+id/rl"
+
+        />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/error_text"
+        android:visibility="invisible"
+        android:layout_centerInParent="true"
+
+
+        android:layout_below="@+id/rl"
+
+
+
+        />
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:layout_below="@+id/rl"
+        android:id="@+id/rv"/>
+
+
+</RelativeLayout>
+    </ScrollView>
+</android.support.v4.widget.SwipeRefreshLayout>

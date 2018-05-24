@@ -14,7 +14,7 @@ public class JParser {
     String LOG_TAG = "Parser";
 
 
-
+int size = 0;
 
 
     public ArrayList<Event> parse(String jstring) {
@@ -96,6 +96,12 @@ public class JParser {
 
     }
     Log.e("Pars", String.valueOf(data.size()));
+        size = data.size();
     return data;
+}
+
+
+public int dataSize(){
+        return size;
 }
 }

@@ -111,29 +111,35 @@ public class FavouritesActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_news) {
 
             Intent intent = new Intent(FavouritesActivity.this, NewsActivity.class);
             startActivity(intent);
-
+            finish();
 
         } else if (id == R.id.nav_choose) {
             Intent intent = new Intent(FavouritesActivity.this, PickActivity.class);
             startActivity(intent);
-
+            finish();
 
         } else if (id == R.id.nav_fav) {
             Intent intent = new Intent(FavouritesActivity.this, FavouritesActivity.class);
             startActivity(intent);
             finish();
 
+        } else if (id == R.id.nav_map) {
+            Intent intent = new Intent(FavouritesActivity.this, MapActivity2.class);
+            startActivity(intent);
+            finish();
+
         }
+
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+
         return true;
     }
 

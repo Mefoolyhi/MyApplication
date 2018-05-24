@@ -1,7 +1,6 @@
 package com.example.admin.myapplication.Activities;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,29 +17,33 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.admin.myapplication.Adapters.EventsAdapter;
-import com.example.admin.myapplication.Adapters.NewsAdapter;
 import com.example.admin.myapplication.Holy.OnBottomReachedListener;
+import com.example.admin.myapplication.Holy.Server;
 import com.example.admin.myapplication.Parsers.JParser;
-import com.example.admin.myapplication.Holy.MyHttpRequest;
 import com.example.admin.myapplication.R;
 import com.example.admin.myapplication.Utils.Event;
-import com.octo.android.robospice.persistence.DurationInMillis;
-import com.octo.android.robospice.persistence.exception.SpiceException;
-import com.octo.android.robospice.request.listener.RequestListener;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class PickActivity extends BaseSpiceActivity implements NavigationView.OnNavigationItemSelectedListener, SwipeRefreshLayout.OnRefreshListener {
 
     JParser jp = new JParser();
+
+
+
+
+
 
     RecyclerView rv;
     ProgressBar pb;
@@ -50,10 +53,8 @@ public class PickActivity extends BaseSpiceActivity implements NavigationView.On
     ArrayList<Event> e = new ArrayList<>();
     Bundle bundle = new Bundle();
 
-    //String url = "https://afisha.yandex.ru/api/events/selection/all-events-concert/?city=yekaterinburg&limit=12&offset=0&hasMixed=0";
-     String url;
+
     boolean used = false;
-//String url = "http://www.justmedia.ru/news/default/getAjaxPreviousItems/?previousItemsPosition=0&previousItemsStep=15&rubric=11&tag=0&delimiterDate=2018-04-19";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -82,9 +83,6 @@ public class PickActivity extends BaseSpiceActivity implements NavigationView.On
 
         mSwipeRefresh =  findViewById(R.id.swipe_refresh);
         mSwipeRefresh.setOnRefreshListener(this);
-        //Настраиваем цветовую тему значка обновления, используя наши цвета:
-//        mSwipeRefresh.setColorSchemeResources
-//                (R.color.light_blue, R.color.middle_blue,R.color.deep_blue);
 
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -116,21 +114,60 @@ public class PickActivity extends BaseSpiceActivity implements NavigationView.On
         }
     }
 
+    int type_of_event = 0;
+    String date = "";
+    int diff = 1;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (data == null) {return;}
         pb.setVisibility(View.VISIBLE);
-        url = data.getStringExtra("url");
+        type_of_event = data.getIntExtra("type",0);
         count = 0;
+        diff = 0;
+        date = "";
         error.setVisibility(View.INVISIBLE);
         String first_date = data.getStringExtra("first_date");
         String second_date = data.getStringExtra("second_date");
         String name = data.getStringExtra("name");
         Log.e("dates",first_date + " "+second_date);
-        String s;
+
+
+        e.clear();
+
+        rv.scrollToPosition(0);
+        bundle = new Bundle();
+
         if (first_date.length()<3){
             filters.setText(name);
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl("https://afisha.yandex.ru/")
+                    .addConverterFactory(ScalarsConverterFactory.create())
+                    .build();
+            Server service = retrofit.create(Server.class);
+            Call<String> call;
+            switch (type_of_event){
+                case 0:
+                    call = service.getNews(12, count, 0);
+                    call.enqueue(callback);
+                    break;
+                case 1:
+                    call = service.getConcerts(12, count, 0);
+                    call.enqueue(callback);
+                    break;
+                case 2:
+                    call = service.getKids(12, count, 0);
+                    call.enqueue(callback);
+                    break;
+                case 3:
+                    call = service.getMusical(12, count, 0);
+                    call.enqueue(callback);
+                    break;
+                case 4:
+                    call = service.getShow(12, count, 0);
+                    call.enqueue(callback);
+                    break;
+            }
 
 
         }
@@ -138,30 +175,51 @@ public class PickActivity extends BaseSpiceActivity implements NavigationView.On
             filters.setText(name + ", " + date(first_date) + " - " + date(second_date));
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
-            int diff = 1;
+
             try {
                 Date date2 = dateFormat.parse(second_date);
                 Date date1 = dateFormat.parse(first_date);
                 diff += (int) ((date2.getTime() - date1.getTime()) / (24 * 60 * 60 * 1000));
-                url += "&date=" + first_date.substring(6, 10) + "-" + first_date.substring(3, 5) + "-" + first_date.substring(0, 2) + "&period=" + diff;
+                date = first_date.substring(6, 10) + "-" + first_date.substring(3, 5) + "-" + first_date.substring(0, 2);
 
             } catch (ParseException e1) {
                 Log.e("DateDif",e1.getMessage());
             }
 
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl("https://afisha.yandex.ru/")
+                    .addConverterFactory(ScalarsConverterFactory.create())
+                    .build();
+
+            Server service = retrofit.create(Server.class);
+            Call<String> call;
+            switch (type_of_event){
+                case 0:
+                    call = service.getNews(12, count, 0, date,diff);
+                    call.enqueue(callback);
+                    break;
+                case 1:
+                    call = service.getConcerts(12, count, 0,date,diff);
+                    call.enqueue(callback);
+                    break;
+                case 2:
+                    call = service.getKids(12, count, 0,date,diff);
+                    call.enqueue(callback);
+                    break;
+                case 3:
+                    call = service.getMusical(12, count, 0,date,diff);
+                    call.enqueue(callback);
+                    break;
+                case 4:
+                    call = service.getShow(12, count, 0,date,diff);
+                    call.enqueue(callback);
+                    break;
+            }
+
         }
 
-        s = url +"&offset="+ count;
-        MyHttpRequest txtRequest = new MyHttpRequest(s);
 
 
-        e.clear();
-
-        rv.scrollToPosition(0);
-        bundle = new Bundle();
-        Log.e("Ref",s);
-        getSpiceManager().execute(txtRequest, s, DurationInMillis.ONE_MINUTE,
-                new TextRequestListener());
 
 
     }
@@ -217,24 +275,29 @@ String date(String input){
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-
         if (id == R.id.nav_news) {
 
             Intent intent = new Intent(PickActivity.this, NewsActivity.class);
             startActivity(intent);
-
+            finish();
 
         } else if (id == R.id.nav_choose) {
             Intent intent = new Intent(PickActivity.this, PickActivity.class);
             startActivity(intent);
-
+            finish();
 
         } else if (id == R.id.nav_fav) {
             Intent intent = new Intent(PickActivity.this, FavouritesActivity.class);
             startActivity(intent);
             finish();
 
+        } else if (id == R.id.nav_map) {
+            Intent intent = new Intent(PickActivity.this, MapActivity2.class);
+            startActivity(intent);
+            finish();
+
         }
+
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -249,28 +312,28 @@ int count = 0;
         super.onStart();
         if (!used) {
             count = 0;
-            url = "https://afisha.yandex.ru/api/events/selection/all-events-theatre/?city=yekaterinburg&limit=12&hasMixed=0";
-
+            type_of_event = 0;
             e.clear();
-            String s = url +"&offset="+ count;
-            MyHttpRequest txtRequest = new MyHttpRequest(s);
+            diff = 1;
+            date = "";
+            used = true;
 
             pb.setVisibility(View.VISIBLE);
 
-            Log.e("Start", s);
-            getSpiceManager().execute(txtRequest, s, DurationInMillis.ONE_MINUTE,
-                    new TextRequestListener());
-            used = true;
+            Log.e("Start", "LETS GO!");
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl("https://afisha.yandex.ru/")
+                    .addConverterFactory(ScalarsConverterFactory.create())
+                    .build();
+
+            Server service = retrofit.create(Server.class);
+            Call<String> call = service.getNews(12, count, 0);
+            call.enqueue(callback);
+
         }
 
 
 }
-
-
-    String date(){
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        return df.format(Calendar.getInstance().getTime());
-    }
 
     @Override
     public void onRefresh() {
@@ -281,77 +344,193 @@ int count = 0;
 
         error.setVisibility(View.INVISIBLE);
 
+
         e.clear();
-        String s = url +"&offset="+ count;
-        MyHttpRequest txtRequest = new MyHttpRequest(s);
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://afisha.yandex.ru/")
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .build();
+
+        Server service = retrofit.create(Server.class);
+        Call<String> call;
+        if (date.equals("") || diff == 1){
+            switch (type_of_event){
+                case 0:
+                    call = service.getNews(12, count, 0);
+                    call.enqueue(callback);
+                    break;
+                case 1:
+                    call = service.getConcerts(12, count, 0);
+                    call.enqueue(callback);
+                    break;
+                case 2:
+                    call = service.getKids(12, count, 0);
+                    call.enqueue(callback);
+                    break;
+                case 3:
+                    call = service.getMusical(12, count, 0);
+                    call.enqueue(callback);
+                    break;
+                case 4:
+                    call = service.getShow(12, count, 0);
+                    call.enqueue(callback);
+                    break;
+            }
+
+        }
+        else{
+            switch (type_of_event){
+                case 0:
+                    call = service.getNews(12, count, 0, date,diff);
+                    call.enqueue(callback);
+                    break;
+                case 1:
+                    call = service.getConcerts(12, count, 0,date,diff);
+                    call.enqueue(callback);
+                    break;
+                case 2:
+                    call = service.getKids(12, count, 0,date,diff);
+                    call.enqueue(callback);
+                    break;
+                case 3:
+                    call = service.getMusical(12, count, 0,date,diff);
+                    call.enqueue(callback);
+                    break;
+                case 4:
+                    call = service.getShow(12, count, 0,date,diff);
+                    call.enqueue(callback);
+                    break;
+            }
+
+        }
 
 
-        Log.e("Start", s);
-        getSpiceManager().execute(txtRequest, s, DurationInMillis.ONE_MINUTE,
-                new TextRequestListener());
+
+
 
     }
 
 
-    public final class TextRequestListener implements RequestListener<String> {
+    Callback<String> callback = new Callback<String>() {
+        @Override
+        public void onResponse(Call<String> call, Response<String> response) {
+            try {
+                e.addAll(jp.parse(response.body()));
+                Log.e("ALARM", String.valueOf(response.raw()));
+
+                mSwipeRefresh.setRefreshing(false);
+                if (count != 0) {
+                    bundle.putParcelable("SAVED_LAYOUT_MANAGER", rv.getLayoutManager().onSaveInstanceState());
+                }
+                rv.setLayoutManager(new LinearLayoutManager(PickActivity.this));
+                EventsAdapter adapter = new EventsAdapter(e,PickActivity.this);
+
+                adapter.setOnBottomReachedListener(new OnBottomReachedListener() {
+                    @Override
+                    public void onBottomReached(int position) {
+
+                        if (jp.dataSize() > 0) {
+                            count += 12;
+                            Retrofit retrofit = new Retrofit.Builder()
+                                    .baseUrl("https://afisha.yandex.ru/")
+                                    .addConverterFactory(ScalarsConverterFactory.create())
+                                    .build();
+
+                            Server service = retrofit.create(Server.class);
+                            Call<String> call;
+                            Log.e("Point", date + " " + String.valueOf(diff));
+                            if (date.equals("")) {
+                                switch (type_of_event) {
+                                    case 0:
+                                        call = service.getNews(12, count, 0);
+                                        call.enqueue(callback);
+                                        break;
+                                    case 1:
+                                        call = service.getConcerts(12, count, 0);
+                                        call.enqueue(callback);
+                                        break;
+                                    case 2:
+                                        call = service.getKids(12, count, 0);
+                                        call.enqueue(callback);
+                                        break;
+                                    case 3:
+                                        call = service.getMusical(12, count, 0);
+                                        call.enqueue(callback);
+                                        break;
+                                    case 4:
+                                        call = service.getShow(12, count, 0);
+                                        call.enqueue(callback);
+                                        break;
+                                }
+
+                            } else {
+                                switch (type_of_event) {
+                                    case 0:
+                                        call = service.getNews(12, count, 0, date, diff);
+                                        call.enqueue(callback);
+                                        break;
+                                    case 1:
+                                        call = service.getConcerts(12, count, 0, date, diff);
+                                        call.enqueue(callback);
+                                        break;
+                                    case 2:
+                                        call = service.getKids(12, count, 0, date, diff);
+                                        call.enqueue(callback);
+                                        break;
+                                    case 3:
+                                        call = service.getMusical(12, count, 0, date, diff);
+                                        call.enqueue(callback);
+                                        break;
+                                    case 4:
+                                        call = service.getShow(12, count, 0, date, diff);
+                                        call.enqueue(callback);
+                                        break;
+                                }
+
+                            }
+
+                            pb.setVisibility(View.VISIBLE);
+
+                            error.setVisibility(View.INVISIBLE);
+
+                            Log.e("More", String.valueOf(count));
+
+
+                        }
+                    }
+                });
+                rv.setAdapter(adapter);
+
+                rv.getLayoutManager().onRestoreInstanceState(( bundle).getParcelable("SAVED_LAYOUT_MANAGER"));
+                pb.setVisibility(View.INVISIBLE);
+            } catch (Exception e) {
+                Log.e("ALARM", e.getMessage());
+                e.printStackTrace();
+                error.setText("Произошла ошибка, попробуйте позже");
+                error.setVisibility(View.VISIBLE);
+                pb.setVisibility(View.INVISIBLE);
+
+                mSwipeRefresh.setRefreshing(false);
+            }
+
+        }
+
 
         @Override
-        public void onRequestFailure(SpiceException spiceException) {
-            error.setText("Произошла ошибка, попробуйте позже");
-            error.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url+"&offset="+count));
+        public void onFailure(Call<String> call, Throwable t) {
 
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                }
-            });
+            Log.e("ALARM", t.getMessage());
+            t.printStackTrace();
+            error.setText("Произошла ошибка, попробуйте позже");
             error.setVisibility(View.VISIBLE);
             pb.setVisibility(View.INVISIBLE);
 
             mSwipeRefresh.setRefreshing(false);
         }
-
-        @Override
-        public void onRequestSuccess(final String result) {
-
-            e.addAll(jp.parse(result));
-
-            mSwipeRefresh.setRefreshing(false);
-            if (count != 0) {
-                bundle.putParcelable("SAVED_LAYOUT_MANAGER", rv.getLayoutManager().onSaveInstanceState());
-            }
-            rv.setLayoutManager(new LinearLayoutManager(PickActivity.this));
-            EventsAdapter adapter = new EventsAdapter(e,PickActivity.this);
-
-            adapter.setOnBottomReachedListener(new OnBottomReachedListener() {
-                @Override
-                public void onBottomReached(int position) {
-
-                    count += 12;
-                    String s = url+"&offset="+count;
-                    MyHttpRequest txtRequest = new MyHttpRequest(s);
-
-                    getSpiceManager().execute(txtRequest, s, DurationInMillis.ONE_MINUTE,
-                            new TextRequestListener());
-
-                    pb.setVisibility(View.VISIBLE);
-
-                    error.setVisibility(View.INVISIBLE);
-
-                    Log.e("More",s);
+    };
 
 
 
 
-                }
-            });
-            rv.setAdapter(adapter);
 
-            rv.getLayoutManager().onRestoreInstanceState(( bundle).getParcelable("SAVED_LAYOUT_MANAGER"));
-            pb.setVisibility(View.INVISIBLE);
-
-        }
-    }
 }

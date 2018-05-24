@@ -70,6 +70,14 @@
             android:name=".Activities.MoreAndBuyActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.SlidrActivityTheme" />
+        <activity
+            android:name=".Activities.TheatreActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.SlidrActivityTheme" />
+        <activity
+            android:name=".Activities.MapActivity2"
+            android:label="@string/title_activity_map2"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

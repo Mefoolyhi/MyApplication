@@ -17,5 +17,7 @@
     <string name="title_activity_filters">НаЗаборе: театры Екатеринбурга</string>
     <string name="title_activity_favourites">НаЗаборе: театры Екатеринбурга</string>
     <string name="title_activity_maps">НаЗаборе: театры Екатеринбурга</string>
+    <string name="title_activity_map2">MapActivity2</string>
+    <string name="action_settings">Settings</string>
 
 </resources>

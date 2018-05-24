@@ -12,8 +12,11 @@
         android:title="Подобрать спектакль" />
 
         <item
-            android:id="@+id/nav_fav"
-            android:title="Избранное" />
+        android:id="@+id/nav_fav"
+        android:title="Избранное" />
+        <item
+            android:id="@+id/nav_map"
+            android:title="Карта" />
     </group>
 
 

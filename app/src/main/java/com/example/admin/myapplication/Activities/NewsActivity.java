@@ -179,7 +179,13 @@ public class NewsActivity extends BaseSpiceActivity
             startActivity(intent);
             finish();
 
+        } else if (id == R.id.nav_map) {
+            Intent intent = new Intent(NewsActivity.this, MapActivity2.class);
+            startActivity(intent);
+            finish();
+
         }
+
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

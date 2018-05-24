@@ -28,7 +28,8 @@ public class FiltersActivity extends AppCompatActivity {
     Spinner type;
     Button go;
 
-    String url = "", tip;
+    String tip;
+    int type_of_event = 0;
     ImageButton date;
     String date1 = "",date2 = "";
     CheckBox today;
@@ -73,25 +74,25 @@ public class FiltersActivity extends AppCompatActivity {
                 tip = choose[i];
                 switch (choose[i]){
                     case "Концерты":
-                        url = "https://afisha.yandex.ru/api/events/selection/all-events-concert/?city=yekaterinburg&limit=12&hasMixed=0";
+                        type_of_event = 1;
 
 
                         break;
                     case "Спектакли":
-                        url = "https://afisha.yandex.ru/api/events/selection/all-events-theatre/?&city=yekaterinburg&limit=12&hasMixed=0";
+                        type_of_event = 0;
 
 
 
                         break;
                     case "Детское":
-                        url = "https://afisha.yandex.ru/api/events/selection/all-events-kids/?city=yekaterinburg&limit=12&hasMixed=0";
+                        type_of_event = 2;
                         break;
 
                     case "Мюзиклы":
-                        url = "https://afisha.yandex.ru/api/events/selection/all-events-musical/?city=yekaterinburg&limit=12&hasMixed=0";
+                        type_of_event = 3;
                         break;
                     case "Шоу":
-                        url = "https://afisha.yandex.ru/api/events/selection/all-events-show/?city=yekaterinburg&limit=12&hasMixed=0";
+                        type_of_event = 4;
                                 break;
                 }
 
@@ -157,7 +158,7 @@ public class FiltersActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent();
-                intent.putExtra("url",url);
+                intent.putExtra("type",type_of_event);
                 if (today.isChecked()){
                     date1 = date();
                     date2 = date();

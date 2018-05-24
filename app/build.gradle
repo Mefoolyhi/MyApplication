@@ -30,7 +30,11 @@ dependencies {
     implementation 'com.leavjenn.smoothdaterangepicker:library:0.2.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation 'com.android.support:design:26.1.0'
+
+    implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.r0adkll:slidableactivity:2.0.6'
+    implementation 'com.squareup.retrofit2:converter-scalars:2.1.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'org.springframework.android:spring-android-rest-template:2.0.0.M3'
     implementation 'com.google.android.gms:play-services-maps:15.0.1'
     implementation 'com.facebook.fresco:fresco:1.8.1'

@@ -27,7 +27,10 @@ import com.example.admin.myapplication.Parsers.NewsParcer;
 import com.example.admin.myapplication.R;
 import com.example.admin.myapplication.Utils.Event;
 import com.example.admin.myapplication.Utils.PostValue;
+import com.facebook.common.logging.FLog;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.imagepipeline.core.ImagePipelineConfig;
+import com.facebook.imagepipeline.listener.RequestLoggingListener;
 import com.octo.android.robospice.persistence.DurationInMillis;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
@@ -36,6 +39,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Set;
 
 public class NewsActivity extends BaseSpiceActivity
         implements NavigationView.OnNavigationItemSelectedListener, SwipeRefreshLayout.OnRefreshListener {
@@ -68,7 +73,15 @@ public class NewsActivity extends BaseSpiceActivity
         super.onCreate(savedInstanceState);
 
 
-        Fresco.initialize(this);
+
+        Set<com.facebook.imagepipeline.listener.RequestListener> requestListeners = new HashSet<>();
+        requestListeners.add(new RequestLoggingListener());
+        ImagePipelineConfig config = ImagePipelineConfig.newBuilder(this)
+                // other setters
+                .setRequestListeners(requestListeners)
+                .build();
+        Fresco.initialize(this, config);
+        FLog.setMinimumLoggingLevel(FLog.VERBOSE);
         setContentView(R.layout.activity_main2);
         Toolbar toolbar =  findViewById(R.id.toolbar);
         toolbar.setOnClickListener(new View.OnClickListener() {
@@ -91,6 +104,7 @@ public class NewsActivity extends BaseSpiceActivity
         name.setMarqueeRepeatLimit(-1); // '-1' for infinite
         name.setSelected(true);
         setSupportActionBar(toolbar);
+
 
 
 

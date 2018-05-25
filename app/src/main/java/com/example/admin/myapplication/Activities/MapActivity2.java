@@ -130,7 +130,9 @@ public class MapActivity2 extends AppCompatActivity
                     Theatre t = data.get(i);
                     mMap.addMarker(new MarkerOptions().position(new LatLng(t.getLatitude(),t.getLongintude())).title(t.getTitle()).snippet("Нажмите, чтобы увидеть больше"));
 
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(t.getLatitude(),t.getLongintude())));
+                    if (i == 4) {
+                        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(t.getLatitude(), t.getLongintude())));
+                    }
                     theatres.put(t.getTitle(), i);
                 }
             }

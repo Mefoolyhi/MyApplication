@@ -2,10 +2,12 @@ package com.example.admin.myapplication.Activities;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -14,7 +16,10 @@ import android.widget.TextView;
 
 import com.example.admin.myapplication.Holy.DataHelper;
 import com.example.admin.myapplication.R;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.request.ImageRequest;
 import com.r0adkll.slidr.Slidr;
 
 
@@ -109,7 +114,19 @@ public class EventActivity extends AppCompatActivity{
         else
             UserRating.setBackgroundColor(getResources().getColor(R.color.red));
 
-        image.setImageURI(getIntent().getStringExtra("image"));
+
+
+        Uri imageUri = Uri.parse(getIntent().getStringExtra("image"));
+
+        ImageRequest request = ImageRequest.fromUri(imageUri);
+
+        DraweeController controller = Fresco.newDraweeControllerBuilder()
+                .setImageRequest(request)
+                .setOldController(image.getController()).build();
+        Log.e("ALARM", "ImagePath uri " + imageUri);
+
+        image.setController(controller);
+
         longitude = getIntent().getDoubleExtra("longitude",0);
         latitude = getIntent().getDoubleExtra("latitude",0);
         imagePlace.setImageURI(getIntent().getStringExtra("imagePlace"));

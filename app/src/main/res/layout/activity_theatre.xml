@@ -50,7 +50,17 @@
         >
 
 
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:id="@+id/image"
+            fresco:actualImageScaleType="centerCrop"
 
+            android:layout_centerHorizontal="true"
+
+
+
+            />
 
 
 
@@ -58,17 +68,10 @@
                 android:layout_width="match_parent"
                 android:orientation="vertical"
 
+                android:layout_below="@+id/image"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true">
-                <com.facebook.drawee.view.SimpleDraweeView
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:id="@+id/image"
-                    fresco:actualImageScaleType="centerCrop"
 
-
-
-                    />
 
                 <TextView
                     android:layout_width="match_parent"
